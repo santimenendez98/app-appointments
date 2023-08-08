@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Roboto+Slab:wght@200;300;500&family=Roboto:wght@100;400;700&display=swap");
+
+.container {
+  padding: 20px;
+  width: 350px;
+}
+
+.card {
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  margin-right: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0s;
+  z-index: 1;
+}
+
+.addressContent {
+  height: 60px;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+.titleName {
+  font-family: "Josefin Sans", sans-serif;
+  position: absolute;
+  font-size: 10px;
+  padding: 0 8px;
+  top: -20px;
+  left: 20%;
+  transform: translateX(-50%);
+  background-color: #5bb882;
+  color: #fff;
+  border-radius: 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  flex-direction: column;
+  color: #3a3949;
+  margin-left: 15px;
+  font-size: 12px;
+  margin-top: 20px;
+}
+
+.personalDataContainer {
+  font-family: "Roboto Slab", serif;
+  margin-bottom: 20px;
+  color: #828588;
+}
+
+.personalData {
+  display: flex;
+  margin-left: 15px;
+}
+
+.dataName {
+  margin-right: 10px;
+  color: #585a5c;
+}
+
+.button {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.buttonView {
+  cursor: pointer;
+  padding: 8px;
+  width: 30%;
+  background-color: #5bb882;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: "Roboto Slab", sans-serif;
+}
+
+.buttonDelete {
+  cursor: pointer;
+  padding: 8px;
+  width: 30%;
+  background-color: #fa3131;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: "Roboto Slab", sans-serif;
+}

@@ -1,0 +1,180 @@
+.container {
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  height: 80vh;
+  background-color: #fff;
+}
+
+.dataContainer {
+  margin-left: auto;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.inputContainerUser {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 2%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.inputContainerPaid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 21%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.inputContainerPet {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 21%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.inputContainerHistory {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10%;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.input input {
+  width: 250px;
+  height: 25px;
+  border-radius: 5px;
+  border: #5bb882 2px solid;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.inputDisabled {
+  background-color: #d3d3d6;
+}
+
+.input select {
+  width: 258px;
+  height: 30px;
+  border-radius: 5px;
+  border: #5bb882 2px solid;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-right: 250px;
+}
+
+.input label {
+  font-family: "Roboto", sans-serif;
+  color: #3a3949;
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
+.title {
+  font-family: "Roboto", sans-serif;
+  color: #3a3949;
+  font-size: 17px;
+  background-color: #5bb882;
+  width: 100%;
+  height: 10vh;
+  text-align: center;
+  font-weight: bold;
+}
+
+.petHistory {
+  display: flex;
+  justify-content: center;
+}
+
+.subTitles {
+  display: flex;
+  justify-content: center;
+  font-family: "Josefin Sans", sans-serif;
+  color: #3a3949;
+  font-size: 15px;
+  margin-top: 20px;
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #5bb882;
+}
+
+.button {
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  margin-top: 20px;
+}
+
+.editButton {
+  cursor: pointer;
+  padding: 8px;
+  width: 150px;
+  background-color: #fff;
+  color: black;
+  border: none;
+  border-radius: 8px;
+  font-family: "Roboto Slab", sans-serif;
+}
+
+.cancelButton {
+  cursor: pointer;
+  padding: 8px;
+  width: 150px;
+  background-color: #fa3131;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: "Roboto Slab", sans-serif;
+}
+
+@media (max-width: 1500px) {
+  .formContainer {
+    width: 90%;
+    height: 90vh;
+  }
+  .inputContainer {
+    margin-left: 33%;
+  }
+  .input {
+    margin-right: 10px;
+  }
+}

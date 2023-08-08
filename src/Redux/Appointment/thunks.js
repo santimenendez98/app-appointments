@@ -17,9 +17,12 @@ export const getAppointment = () => {
   return async (dispatch) => {
     dispatch(getAppointmentPending());
     try {
-      const response = await fetch(`http://localhost:4000/api/appointment`, {
-        method: "GET",
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/appointment`,
+        {
+          method: "GET",
+        }
+      );
       const res = await response.json();
       if (res) {
         dispatch(getAppointmentSuccess(res));
@@ -37,13 +40,16 @@ export const createAppointment = (data) => {
   return async (dispatch) => {
     dispatch(addAppointmentPending());
     try {
-      const response = await fetch(`http://localhost:4000/api/appointment`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/appointment`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       const res = response.json();
 
@@ -64,7 +70,7 @@ export const editAppointment = (id, data) => {
     dispatch(editAppointmentPending());
     try {
       const response = await fetch(
-        `http://localhost:4000/api/appointment/${id}`,
+        `${process.env.REACT_APP_API_URL}/api/appointment/${id}`,
         {
           method: "PUT",
           headers: {
@@ -93,7 +99,7 @@ export const deleteAppointment = (id) => {
     dispatch(deleteAppointmentPending());
     try {
       const response = await fetch(
-        `http://localhost:4000/api/appointment/${id}`,
+        `${process.env.REACT_APP_API_URL}/api/appointment/${id}`,
         {
           method: "DELETE",
         }

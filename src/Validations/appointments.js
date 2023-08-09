@@ -36,15 +36,18 @@ const appointmentSchema = Joi.object({
     })
     .required(),
   clientID: Joi.string()
-    .pattern(/^\d+|No Client$/)
-    .min(1)
+    .pattern(/^\d+$|No Client/)
+    .min(8)
+    .max(8)
     .when("isClient", {
       is: true,
       then: Joi.string().required(),
-      otherwise: Joi.string(),
+      otherwise: Joi.string().allow("No Client"),
     })
     .messages({
       "string.empty": "Client ID is required",
+      "string.min": "Client ID should have a 8 characters",
+      "string.max": "Client ID should have a 8 characters",
       "string.pattern.base": "Client ID contains only numbers",
     }),
   date: Joi.date()
@@ -55,10 +58,11 @@ const appointmentSchema = Joi.object({
   paidMonth: Joi.string()
     .when("isClient", {
       is: true,
-      then: Joi.string().required(),
+      then: Joi.string().max(1).required(),
       otherwise: Joi.string(),
     })
     .messages({
+      "string.max": "Paid Month should have 1 option",
       "string.empty": "Last Paid Month is required",
     }),
   kind: Joi.string()

@@ -26,6 +26,7 @@ function App() {
   const [viewForm, setViewForm] = useState(false);
   const [toastModal, setToastModal] = useState("");
   const [showToastModal, setShowToastModal] = useState(false);
+  console.log(process.env.REACT_APP_API_URL);
 
   useEffect(() => {
     dispatch(getAppointment());
@@ -112,6 +113,25 @@ function App() {
     setIdtoEdit("");
   };
 
+  const handleFilterClient = (value) => {
+    if (value === true) {
+      const filter = appointment.filter((appointments) => {
+        return appointments.isClient === true;
+      });
+      setFilteredAppointment(filter);
+    } else if (value === false) {
+      const filter = appointment.filter((appointments) => {
+        return appointments.isClient === false;
+      });
+      setFilteredAppointment(filter);
+    } else {
+      const filter = appointment.filter((appointments) => {
+        return appointments;
+      });
+      setFilteredAppointment(filter);
+    }
+  };
+
   if (isPending) {
     return (
       <>
@@ -134,6 +154,11 @@ function App() {
         <div className={styles.add} onClick={() => setViewForm(true)}>
           <FontAwesomeIcon icon={faPlus} />
         </div>
+      </div>
+      <div>
+        <button onClick={() => handleFilterClient()}>All</button>
+        <button onClick={() => handleFilterClient(true)}>Client</button>
+        <button onClick={() => handleFilterClient(false)}>No Client</button>
       </div>
       {filteredAppointment.length === 0 ? (
         <div className={styles.notFoundContainer}>

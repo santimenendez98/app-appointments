@@ -26,10 +26,10 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
     clientID: appointmentToEdit[0]?.clientID || "No Client",
     paidMonth: appointmentToEdit[0]?.paidMonth || "null",
   });
-
   const {
     register,
     handleSubmit,
+    clearErrors,
     formState: { errors },
   } = useForm({
     mode: "onChange",
@@ -91,18 +91,21 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
     if (fieldName === "isClient") {
       const isClientValue = !valueAppointment.isClient;
 
+      if (!isClientValue) {
+        if (errors.clientID) {
+          clearErrors("clientID");
+        }
+        if (errors.paidMonth) {
+          clearErrors("paidMonth");
+        }
+      }
+
       const updatedValues = {
         ...valueAppointment,
         isClient: isClientValue,
+        clientID: isClientValue ? null : "No Client",
+        paidMonth: isClientValue ? null : "null",
       };
-
-      if (isClientValue && appointmentToEdit[0]) {
-        updatedValues.clientID = appointmentToEdit[0].clientID;
-        updatedValues.paidMonth = appointmentToEdit[0].paidMonth;
-      } else {
-        updatedValues.clientID = "No Client";
-        updatedValues.paidMonth = "null";
-      }
 
       setValueAppointment(updatedValues);
     } else {

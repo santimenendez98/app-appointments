@@ -56,13 +56,14 @@ const appointmentSchema = Joi.object({
     })
     .required(),
   paidMonth: Joi.string()
+    .min(3)
     .when("isClient", {
       is: true,
-      then: Joi.string().max(1).required(),
+      then: Joi.string().required(),
       otherwise: Joi.string(),
     })
     .messages({
-      "string.max": "Paid Month should have 1 option",
+      "string.min": "Paid Month should have 1 option",
       "string.empty": "Last Paid Month is required",
     }),
   kind: Joi.string()

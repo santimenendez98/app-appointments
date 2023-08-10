@@ -150,16 +150,17 @@ function App() {
             name={"Filter: "}
             action={(e) => handlerFilter(e.target.value.toLowerCase())}
           />
+          <div className={styles.filterClient}>
+            <button onClick={() => handleFilterClient()}>All</button>
+            <button onClick={() => handleFilterClient(true)}>Client</button>
+            <button onClick={() => handleFilterClient(false)}>No Client</button>
+          </div>
         </div>
         <div className={styles.add} onClick={() => setViewForm(true)}>
           <FontAwesomeIcon icon={faPlus} />
         </div>
       </div>
-      <div>
-        <button onClick={() => handleFilterClient()}>All</button>
-        <button onClick={() => handleFilterClient(true)}>Client</button>
-        <button onClick={() => handleFilterClient(false)}>No Client</button>
-      </div>
+
       {filteredAppointment.length === 0 ? (
         <div className={styles.notFoundContainer}>
           <div className={styles.notFound}>

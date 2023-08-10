@@ -24,7 +24,7 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
   const [valueAppointment, setValueAppointment] = useState({
     isClient: appointmentToEdit[0]?.isClient || false,
     clientID: appointmentToEdit[0]?.clientID || "No Client",
-    paidMonth: appointmentToEdit[0]?.paidMonth || "null",
+    paidMonth: appointmentToEdit[0]?.paidMonth || "no",
   });
   const {
     register,
@@ -286,9 +286,6 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
                       !valueAppointment.isClient && styles.inputDisabled
                     }
                   >
-                    <option disabled value="null">
-                      Choose an option
-                    </option>
                     <option>Jenuary</option>
                     <option>February</option>
                     <option>March</option>

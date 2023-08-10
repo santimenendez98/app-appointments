@@ -19,6 +19,18 @@
   width: 100%;
 }
 
+.filterClient button {
+  margin-right: 6px;
+  margin-top: 20px;
+  width: 8%;
+  padding: 7px;
+  background-color: #5bb882;
+  cursor: pointer;
+  color: #ffffff;
+  border-radius: 5%;
+  border: none;
+}
+
 .add {
   position: relative;
   background-color: #5bb882;

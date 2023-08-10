@@ -26,7 +26,6 @@ function App() {
   const [viewForm, setViewForm] = useState(false);
   const [toastModal, setToastModal] = useState("");
   const [showToastModal, setShowToastModal] = useState(false);
-  console.log(process.env.REACT_APP_API_URL);
 
   useEffect(() => {
     dispatch(getAppointment());

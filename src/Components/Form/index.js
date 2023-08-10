@@ -24,7 +24,7 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
   const [valueAppointment, setValueAppointment] = useState({
     isClient: appointmentToEdit[0]?.isClient || false,
     clientID: appointmentToEdit[0]?.clientID || "No Client",
-    paidMonth: appointmentToEdit[0]?.paidMonth || "no",
+    paidMonth: appointmentToEdit[0]?.paidMonth || "No Client",
   });
   const {
     register,
@@ -56,7 +56,6 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
       isClient: appointment ? appointmentToEdit[0]?.isClient : "",
     },
   });
-
   function isoToNormalDate(isoDate) {
     const date = new Date(isoDate);
     const year = date.getFullYear();
@@ -104,7 +103,7 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
         ...valueAppointment,
         isClient: isClientValue,
         clientID: isClientValue ? null : "No Client",
-        paidMonth: isClientValue ? null : "null",
+        paidMonth: isClientValue ? null : "No Client",
       };
 
       setValueAppointment(updatedValues);
@@ -136,8 +135,6 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
       </>
     );
   }
-
-  console.log(valueAppointment);
 
   return (
     <div className={styles.container}>
@@ -256,13 +253,13 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
                   name="clientID"
                   register={register}
                   onBlur={(e) => handleInputChange("clientID", e)}
+                  placeholder={valueAppointment.clientID || "Enter Client ID"}
                   useBlur={true}
                   disabled={!valueAppointment.isClient}
                   style={!valueAppointment.isClient && styles.inputDisabled}
                 />
                 <FormField
                   label="Date"
-                  placeholder="Enter Date"
                   type="date"
                   error={errors.date?.message}
                   name="date"
@@ -286,17 +283,18 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
                       !valueAppointment.isClient && styles.inputDisabled
                     }
                   >
-                    <option>January</option>
-                    <option>February</option>
-                    <option>March</option>
-                    <option>April</option>
-                    <option>Jun</option>
-                    <option>July</option>
-                    <option>Agost</option>
-                    <option>September</option>
-                    <option>October</option>
-                    <option>November</option>
-                    <option>December</option>
+                    <option value="No Client">Choose an option</option>
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="Jun">Jun</option>
+                    <option value="July">July</option>
+                    <option value="Agost">Agost</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
                   </select>
                   {errors && errors.paidMonth ? (
                     <span className={styles.error}>
@@ -355,7 +353,6 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
                       !valueAppointment.isClient && styles.inputDisabled
                     }
                   >
-                    {console.log(valueAppointment)}
                     <option value="">Choose an option</option>
                     <option value="Jenuary">January</option>
                     <option value="February">February</option>
@@ -446,7 +443,6 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
                       "\u00A0"
                     )}
                   </div>
-                  {console.log(valueAppointment)}
                   <FormField
                     label="Color"
                     type="text"

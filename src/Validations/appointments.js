@@ -41,15 +41,14 @@ const appointmentSchema = Joi.object({
     .max(8)
     .when("isClient", {
       is: true,
-      then: Joi.string().required().invalid("No Client"),
-      otherwise: Joi.string(),
+      then: Joi.string().required(),
+      otherwise: Joi.string().allow("No Client"),
     })
     .messages({
       "string.empty": "Client ID is required",
       "string.min": "Client ID should have a 8 characters",
       "string.max": "Client ID should have a 8 characters",
       "string.pattern.base": "Client ID contains only numbers",
-      "any.invalid": "Client ID is required",
     }),
   date: Joi.date()
     .messages({

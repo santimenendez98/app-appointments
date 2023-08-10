@@ -34,7 +34,7 @@ function cards({
             <p className={styles.dataName}>Phone:</p>
             <p>{phone}</p>
           </div>
-          {paidMonth === "null" ? (
+          {paidMonth === "No Client" ? (
             <div className={styles.personalData}>
               <p className={styles.dataName}>Last Date:</p>
               <p>{date}</p>

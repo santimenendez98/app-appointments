@@ -286,7 +286,7 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
                       !valueAppointment.isClient && styles.inputDisabled
                     }
                   >
-                    <option>Jenuary</option>
+                    <option>January</option>
                     <option>February</option>
                     <option>March</option>
                     <option>April</option>
@@ -355,8 +355,9 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
                       !valueAppointment.isClient && styles.inputDisabled
                     }
                   >
-                    <option>Choose an option</option>
-                    <option value="Jenuary">Jenuary</option>
+                    {console.log(valueAppointment)}
+                    <option value="">Choose an option</option>
+                    <option value="Jenuary">January</option>
                     <option value="February">February</option>
                     <option value="March">March</option>
                     <option value="April">April</option>

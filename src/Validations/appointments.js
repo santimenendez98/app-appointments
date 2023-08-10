@@ -60,7 +60,7 @@ const appointmentSchema = Joi.object({
     .when("isClient", {
       is: true,
       then: Joi.string().required(),
-      otherwise: Joi.string(),
+      otherwise: Joi.string().allow(""),
     })
     .messages({
       "string.min": "Paid Month should have 1 option",

@@ -43,7 +43,12 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
           ? appointmentToEdit[0].phone.toString()
           : ""
         : "",
-      clientID: appointment ? appointmentToEdit[0]?.clientID : "",
+      clientID:
+        appointmentToEdit[0]?.clientID === "No Client"
+          ? ""
+          : appointment
+          ? appointmentToEdit[0]?.clientID
+          : "",
       date: appointment ? isoToNormalDate(appointmentToEdit[0]?.date) : "",
       paidMonth: appointment ? appointmentToEdit[0]?.paidMonth : "",
       kind: appointment ? appointmentToEdit[0]?.kind : "",
@@ -182,7 +187,7 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
                 />
                 <FormField
                   label="Phone"
-                  type="number"
+                  type="text"
                   error={errors.phone?.message}
                   name="phone"
                   register={register}
@@ -225,7 +230,7 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
                 <FormField
                   label="Phone"
                   placeholder="Enter Phone"
-                  type="number"
+                  type="text"
                   error={errors.phone?.message}
                   name="phone"
                   register={register}
@@ -250,7 +255,7 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
                 />
                 <FormField
                   label="Client ID"
-                  type="number"
+                  type="text"
                   error={errors.clientID?.message}
                   name="clientID"
                   register={register}
@@ -319,7 +324,7 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
                 <FormField
                   label="Client ID"
                   placeholder="Enter Client ID"
-                  type="number"
+                  type="text"
                   error={errors.clientID?.message}
                   name="clientID"
                   register={register}
@@ -512,11 +517,8 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
                           sex: e.target.value,
                         })
                       }
-                      defaultValue={valueAppointment.paidMonth || ""}
                     >
-                      <option disabled value="">
-                        Choose an option
-                      </option>
+                      <option value="">Choose an option</option>
                       <option>Male</option>
                       <option>Female</option>
                     </select>

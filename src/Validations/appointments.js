@@ -27,22 +27,24 @@ const appointmentSchema = Joi.object({
     })
     .required(),
   phone: Joi.string()
+    .pattern(/^\d+$/)
     .min(8)
     .max(9)
     .messages({
+      "string.pattern.base": "Phone contains only numbers",
       "string.min": "Phone should have a 8 characters",
       "string.max": "Phone should have a of 9 characters",
       "string.empty": "Phone is required",
     })
     .required(),
   clientID: Joi.string()
-    .pattern(/^\d+$|/)
+    .pattern(/^\d+$/)
     .min(8)
     .max(8)
     .when("isClient", {
       is: true,
       then: Joi.string().required(),
-      otherwise: Joi.string().allow("No Client"),
+      otherwise: Joi.string().allow("No Client", ""),
     })
     .messages({
       "string.empty": "Client ID is required",
@@ -52,7 +54,7 @@ const appointmentSchema = Joi.object({
     }),
   date: Joi.date()
     .messages({
-      "string.empty": "Date is required",
+      "date.base": "Date is required",
     })
     .required(),
   paidMonth: Joi.string().when("isClient", {
@@ -61,9 +63,7 @@ const appointmentSchema = Joi.object({
       "string.empty": "Last Paid Month is required",
       "any.invalid": "Last Paid Month is required",
     }),
-    otherwise: Joi.string().valid("", "No Client").messages({
-      "any.only": "Last Paid Month is required",
-    }),
+    otherwise: Joi.string().allow("No Client", ""),
   }),
 
   kind: Joi.string()
@@ -97,7 +97,10 @@ const appointmentSchema = Joi.object({
     .min(1)
     .max(20)
     .messages({
-      "string.empty": "Age is required",
+      "number.min": "Age cannot be less than 1",
+      "number.max": "Age cannot be more than 20",
+      "any.required": "Age is required",
+      "number.base": "Age must contains only numbers",
     })
     .required(),
   sex: Joi.string()

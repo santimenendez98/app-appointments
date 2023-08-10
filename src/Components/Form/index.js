@@ -102,8 +102,8 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
       const updatedValues = {
         ...valueAppointment,
         isClient: isClientValue,
-        clientID: isClientValue ? null : "No Client",
-        paidMonth: isClientValue ? null : "No Client",
+        clientID: isClientValue ? value : "No Client",
+        paidMonth: isClientValue ? value : "No Client",
       };
 
       setValueAppointment(updatedValues);
@@ -114,6 +114,8 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
       });
     }
   }
+
+  console.log(valueAppointment);
 
   const handleCreate = () => {
     dispatch(createAppointment(valueAppointment))

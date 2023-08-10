@@ -55,16 +55,17 @@ const appointmentSchema = Joi.object({
       "string.empty": "Date is required",
     })
     .required(),
-  paidMonth: Joi.string()
-    .when("isClient", {
-      is: true,
-      then: Joi.string().required().invalid("No Client"),
-      otherwise: Joi.string(),
-    })
-    .messages({
+  paidMonth: Joi.string().when("isClient", {
+    is: true,
+    then: Joi.string().required().invalid("No Client").messages({
       "string.empty": "Last Paid Month is required",
-      "any.invalid": "Paid Month is required",
+      "any.invalid": "Last Paid Month is required",
     }),
+    otherwise: Joi.string().valid("", "No Client").messages({
+      "any.only": "Last Paid Month is required",
+    }),
+  }),
+
   kind: Joi.string()
     .pattern(/^[A-Za-z\s]+$/)
     .min(3)

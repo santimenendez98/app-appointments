@@ -54,12 +54,14 @@
 .personalDataContainer {
   font-family: "Roboto Slab", serif;
   margin-bottom: 20px;
+  padding: 8px;
   color: #828588;
 }
 
 .personalData {
   display: flex;
   margin-left: 15px;
+  margin-bottom: 8px;
 }
 
 .dataName {

@@ -331,6 +331,7 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
                     error={errors.paidMonth?.message}
                     name="paidMonth"
                     register={register}
+                    disabled={!valueAppointment.isClient}
                     useBlur={true}
                     onBlur={(e) => handleInputChange("paidMonth", e)}
                   />

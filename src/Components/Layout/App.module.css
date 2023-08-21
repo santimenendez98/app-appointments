@@ -19,16 +19,24 @@
   width: 100%;
 }
 
+.filterClient {
+margin-left: 52px;
+}
+
 .filterClient button {
   margin-right: 6px;
   margin-top: 20px;
-  width: 8%;
+  width: 124px;
   padding: 7px;
   background-color: #5bb882;
   cursor: pointer;
   color: #ffffff;
   border-radius: 5%;
   border: none;
+}
+
+.filterClient button:hover {
+  background-color: #499167;
 }
 
 .add {
@@ -68,8 +76,9 @@
   display: flex;
   justify-content: center;
   font-family: "Roboto", sans-serif;
+  font-weight: bold;
   color: #3a3949;
-  font-size: 20px;
+  font-size: 30px;
 }
 .cards {
   display: grid;

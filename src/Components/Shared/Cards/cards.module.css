@@ -19,10 +19,6 @@
   z-index: 1;
 }
 
-.addressContent {
-  height: 60px;
-}
-
 .card:hover {
   transform: translateY(-8px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
@@ -32,10 +28,10 @@
 .titleName {
   font-family: "Josefin Sans", sans-serif;
   position: absolute;
-  font-size: 10px;
+  font-size: 13px;
   padding: 0 8px;
-  top: -20px;
-  left: 20%;
+  top: -10px;
+  left: 25%;
   transform: translateX(-50%);
   background-color: #5bb882;
   color: #fff;
@@ -44,13 +40,15 @@
 }
 
 .title {
-  font-family: "Roboto", sans-serif;
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 600;
   display: flex;
   flex-direction: column;
   color: #3a3949;
+  height: 60px;
   margin-left: 15px;
-  font-size: 12px;
-  margin-top: 20px;
+  font-size: 20px;
+  margin-top: 25px;
 }
 
 .personalDataContainer {

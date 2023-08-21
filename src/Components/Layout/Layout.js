@@ -141,7 +141,7 @@ function App() {
   return (
     <div className={styles.container}>
       <div className={styles.title}>
-        <h1>APPOINTMENTS</h1>
+        <h1>VETERINARY</h1>
       </div>
       <div className={styles.filterContainer}>
         <div className={styles.filter}>

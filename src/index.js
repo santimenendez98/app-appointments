@@ -4,6 +4,7 @@ import Layout from "./Components/Layout/Layout.js";
 import { Provider } from "react-redux";
 import { store } from "./Redux/store.js";
 import { BrowserRouter, Route } from "react-router-dom";
+import styles from "./input.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -11,7 +12,7 @@ root.render(
     <React.StrictMode>
       <BrowserRouter>
         <Route path="/">
-          <Layout />
+          <Layout className={styles} />
         </Route>
       </BrowserRouter>
     </React.StrictMode>

@@ -157,229 +157,183 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
           </div>
           <form>
             {id ? (
-              <div className={styles.inputContainerUser}>
-                <FormField
-                  label="Name"
-                  type="text"
-                  error={errors.name?.message}
-                  name="name"
-                  register={register}
-                  useBlur={true}
-                  onBlur={(e) => handleInputChange("name", e)}
-                />
-                <FormField
-                  label="Last Name"
-                  type="text"
-                  error={errors.lastName?.message}
-                  name="lastName"
-                  register={register}
-                  useBlur={true}
-                  onBlur={(e) => handleInputChange("lastName", e)}
-                />
-                <FormField
-                  label="Address"
-                  type="text"
-                  error={errors.address?.message}
-                  name="address"
-                  register={register}
-                  useBlur={true}
-                  onBlur={(e) => handleInputChange("address", e)}
-                />
-                <FormField
-                  label="Phone"
-                  type="text"
-                  error={errors.phone?.message}
-                  name="phone"
-                  register={register}
-                  useBlur={true}
-                  onBlur={(e) => handleInputChange("phone", e)}
-                />
+              <div className="flex justify-center mt-4">
+                <div className="columns-2">
+                  <FormField
+                    label="Name"
+                    type="text"
+                    error={errors.name?.message}
+                    name="name"
+                    register={register}
+                    useBlur={true}
+                    onBlur={(e) => handleInputChange("name", e)}
+                  />
+                  <FormField
+                    label="Last Name"
+                    type="text"
+                    error={errors.lastName?.message}
+                    name="lastName"
+                    register={register}
+                    useBlur={true}
+                    onBlur={(e) => handleInputChange("lastName", e)}
+                  />
+                  <FormField
+                    label="Address"
+                    type="text"
+                    error={errors.address?.message}
+                    name="address"
+                    register={register}
+                    useBlur={true}
+                    onBlur={(e) => handleInputChange("address", e)}
+                  />
+                  <FormField
+                    label="Phone"
+                    type="text"
+                    error={errors.phone?.message}
+                    name="phone"
+                    register={register}
+                    useBlur={true}
+                    onBlur={(e) => handleInputChange("phone", e)}
+                  />
+                </div>
               </div>
             ) : (
-              <div className={styles.inputContainerUser}>
-                <FormField
-                  label="Name"
-                  placeholder="Enter Name"
-                  type="text"
-                  error={errors.name?.message}
-                  name="name"
-                  register={register}
-                  useBlur={true}
-                  onBlur={(e) => handleInputChange("name", e)}
-                />
-                <FormField
-                  label="Last Name"
-                  placeholder="Enter Last Name"
-                  type="text"
-                  error={errors.lastName?.message}
-                  name="lastName"
-                  register={register}
-                  useBlur={true}
-                  onBlur={(e) => handleInputChange("lastName", e)}
-                />
-                <FormField
-                  label="Address"
-                  placeholder="Enter Address"
-                  type="text"
-                  error={errors.address?.message}
-                  name="address"
-                  register={register}
-                  useBlur={true}
-                  onBlur={(e) => handleInputChange("address", e)}
-                />
-                <FormField
-                  label="Phone"
-                  placeholder="Enter Phone"
-                  type="text"
-                  error={errors.phone?.message}
-                  name="phone"
-                  register={register}
-                  useBlur={true}
-                  onBlur={(e) => handleInputChange("phone", e)}
-                />
+              <div className="flex justify-center mt-4">
+                <div className="columns-2">
+                  <FormField
+                    label="Name"
+                    placeholder="Enter Name"
+                    type="text"
+                    error={errors.name?.message}
+                    name="name"
+                    register={register}
+                    useBlur={true}
+                    onBlur={(e) => handleInputChange("name", e)}
+                  />
+                  <FormField
+                    label="Last Name"
+                    placeholder="Enter Last Name"
+                    type="text"
+                    error={errors.lastName?.message}
+                    name="lastName"
+                    register={register}
+                    useBlur={true}
+                    onBlur={(e) => handleInputChange("lastName", e)}
+                  />
+                  <FormField
+                    label="Address"
+                    placeholder="Enter Address"
+                    type="text"
+                    error={errors.address?.message}
+                    name="address"
+                    register={register}
+                    useBlur={true}
+                    onBlur={(e) => handleInputChange("address", e)}
+                  />
+                  <FormField
+                    label="Phone"
+                    placeholder="Enter Phone"
+                    type="text"
+                    error={errors.phone?.message}
+                    name="phone"
+                    register={register}
+                    useBlur={true}
+                    onBlur={(e) => handleInputChange("phone", e)}
+                  />
+                </div>
               </div>
             )}
             <div className={styles.subTitles}>
               <h3>PAID INFORMATION</h3>
             </div>
             {id ? (
-              <div className={styles.inputContainerPaid}>
-                <FormField
-                  label="Is Client?"
-                  type="checkbox"
-                  error={errors.isClient?.message}
-                  name="isClient"
-                  register={register}
-                  onChange={(e) => handleInputChange("isClient", e)}
-                  useBlur={false}
-                />
-                <FormField
-                  label="Client ID"
-                  type="text"
-                  error={errors.clientID?.message}
-                  name="clientID"
-                  register={register}
-                  onBlur={(e) => handleInputChange("clientID", e)}
-                  placeholder={valueAppointment.clientID || "Enter Client ID"}
-                  useBlur={true}
-                  disabled={!valueAppointment.isClient}
-                  style={!valueAppointment.isClient && styles.inputDisabled}
-                />
-                <FormField
-                  label="Date"
-                  type="date"
-                  error={errors.date?.message}
-                  name="date"
-                  register={register}
-                  onBlur={(e) => handleInputChange("date", normalDateToIso(e))}
-                  useBlur={true}
-                />
-                <div className={styles.input}>
-                  <label>Last Paid Month: </label>
-                  <select
+              <div className="flex justify-center mt-4">
+                <div className="columns-2">
+                  <FormField
+                    label="Is Client?"
+                    type="checkbox"
+                    error={errors.isClient?.message}
+                    name="isClient"
+                    register={register}
+                    onChange={(e) => handleInputChange("isClient", e)}
+                    useBlur={false}
+                  />
+                  <FormField
+                    label="Client ID"
                     type="text"
-                    {...register("paidMonth")}
-                    onBlur={(e) =>
-                      setValueAppointment({
-                        ...valueAppointment,
-                        paidMonth: e.target.value,
-                      })
-                    }
+                    error={errors.clientID?.message}
+                    name="clientID"
+                    register={register}
+                    onBlur={(e) => handleInputChange("clientID", e)}
+                    placeholder={valueAppointment.clientID || "Enter Client ID"}
+                    useBlur={true}
                     disabled={!valueAppointment.isClient}
-                    className={
-                      !valueAppointment.isClient && styles.inputDisabled
+                    style={!valueAppointment.isClient && styles.inputDisabled}
+                  />
+                  <FormField
+                    label="Date"
+                    type="date"
+                    error={errors.date?.message}
+                    name="date"
+                    register={register}
+                    onBlur={(e) =>
+                      handleInputChange("date", normalDateToIso(e))
                     }
-                  >
-                    <option value="No Client">Choose an option</option>
-                    <option value="January">January</option>
-                    <option value="February">February</option>
-                    <option value="March">March</option>
-                    <option value="April">April</option>
-                    <option value="Jun">Jun</option>
-                    <option value="July">July</option>
-                    <option value="Agost">Agost</option>
-                    <option value="September">September</option>
-                    <option value="October">October</option>
-                    <option value="November">November</option>
-                    <option value="December">December</option>
-                  </select>
-                  {errors && errors.paidMonth ? (
-                    <span className={styles.error}>
-                      {errors.paidMonth?.message}
-                    </span>
-                  ) : (
-                    "\u00A0"
-                  )}
+                    useBlur={true}
+                  />
+                  <FormField
+                    label="Paid Month"
+                    type="select"
+                    error={errors.paidMonth?.message}
+                    name="paidMonth"
+                    register={register}
+                    disabled={!valueAppointment.isClient}
+                    useBlur={true}
+                    onBlur={(e) => handleInputChange("paidMonth", e)}
+                  />
                 </div>
               </div>
             ) : (
-              <div className={styles.inputContainerPaid}>
-                <FormField
-                  label="Is Client?"
-                  type="checkbox"
-                  name="isClient"
-                  register={register}
-                  onChange={(e) => handleInputChange("isClient", e)}
-                />
-                <FormField
-                  label="Client ID"
-                  placeholder="Enter Client ID"
-                  type="text"
-                  error={errors.clientID?.message}
-                  name="clientID"
-                  register={register}
-                  useBlur={true}
-                  onBlur={(e) => handleInputChange("clientID", e)}
-                  disabled={!valueAppointment.isClient}
-                  style={!valueAppointment.isClient && styles.inputDisabled}
-                />
-                <FormField
-                  label="Date"
-                  placeholder="Enter Date"
-                  type="date"
-                  error={errors.date?.message}
-                  name="date"
-                  register={register}
-                  onBlur={(e) => handleInputChange("date", e)}
-                  useBlur={true}
-                />
-                <div className={styles.input}>
-                  <label>Paid Month: </label>
-                  <select
+              <div className="flex justify-center mt-4">
+                <div className="columns-2">
+                  <FormField
+                    label="Is Client?"
+                    type="checkbox"
+                    name="isClient"
+                    register={register}
+                    onChange={(e) => handleInputChange("isClient", e)}
+                  />
+                  <FormField
+                    label="Client ID"
+                    placeholder="Enter Client ID"
                     type="text"
-                    placeholder="Enter Paid Month"
-                    {...register("paidMonth")}
-                    onChange={(e) =>
-                      setValueAppointment({
-                        ...valueAppointment,
-                        paidMonth: e.target.value,
-                      })
-                    }
+                    error={errors.clientID?.message}
+                    name="clientID"
+                    register={register}
+                    useBlur={true}
+                    onBlur={(e) => handleInputChange("clientID", e)}
                     disabled={!valueAppointment.isClient}
-                    className={
-                      !valueAppointment.isClient && styles.inputDisabled
-                    }
-                  >
-                    <option value="">Choose an option</option>
-                    <option value="Jenuary">January</option>
-                    <option value="February">February</option>
-                    <option value="March">March</option>
-                    <option value="April">April</option>
-                    <option value="Jun">Jun</option>
-                    <option value="July">July</option>
-                    <option value="Agost">Agost</option>
-                    <option value="September">September</option>
-                    <option value="October">October</option>
-                    <option value="November">November</option>
-                    <option value="December">December</option>
-                  </select>
-                  {errors && errors.paidMonth ? (
-                    <span className={styles.error}>
-                      {errors.paidMonth?.message}
-                    </span>
-                  ) : (
-                    "\u00A0"
-                  )}
+                    style={!valueAppointment.isClient && styles.inputDisabled}
+                  />
+                  <FormField
+                    label="Date"
+                    placeholder="Enter Date"
+                    type="date"
+                    error={errors.date?.message}
+                    name="date"
+                    register={register}
+                    onBlur={(e) => handleInputChange("date", e)}
+                    useBlur={true}
+                  />
+                  <FormField
+                    label="Paid Month"
+                    type="select"
+                    error={errors.paidMonth?.message}
+                    name="paidMonth"
+                    register={register}
+                    useBlur={true}
+                    onBlur={(e) => handleInputChange("paidMonth", e)}
+                  />
                 </div>
               </div>
             )}
@@ -387,159 +341,134 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
               <h3>PET INFORMATION</h3>
             </div>
             {id ? (
-              <div className={styles.inputContainerPet}>
-                <div>
-                  <FormField
-                    label="Kind"
-                    type="text"
-                    error={errors.kind?.message}
-                    name="kind"
-                    register={register}
-                    useBlur={true}
-                    onBlur={(e) => handleInputChange("kind", e)}
-                  />
-                  <FormField
-                    label="Breed"
-                    type="text"
-                    error={errors.breed?.message}
-                    name="breed"
-                    register={register}
-                    useBlur={true}
-                    onBlur={(e) => handleInputChange("breed", e)}
-                  />
-                  <FormField
-                    label="Pet Name"
-                    type="text"
-                    error={errors.petName?.message}
-                    name="petName"
-                    register={register}
-                    useBlur={true}
-                    onBlur={(e) => handleInputChange("petName", e)}
-                  />
-                </div>
-                <div>
-                  <FormField
-                    label="Age"
-                    type="text"
-                    error={errors.age?.message}
-                    name="age"
-                    register={register}
-                    useBlur={true}
-                    onBlur={(e) => handleInputChange("age", e)}
-                  />
-                  <div className={styles.input}>
-                    <label>Sex: </label>
-                    <select
+              <div className="flex justify-center mt-4">
+                <div className="columns-2">
+                  <div>
+                    <FormField
+                      label="Kind"
                       type="text"
-                      {...register("sex")}
-                      onBlur={(e) =>
-                        setValueAppointment({
-                          ...valueAppointment,
-                          sex: e.target.value,
-                        })
-                      }
-                    >
-                      <option>Male</option>
-                      <option>Female</option>
-                    </select>
-                    {errors && errors.sex ? (
-                      <span className={styles.error}>
-                        {errors.sex?.message}
-                      </span>
-                    ) : (
-                      "\u00A0"
-                    )}
+                      error={errors.kind?.message}
+                      name="kind"
+                      register={register}
+                      useBlur={true}
+                      onBlur={(e) => handleInputChange("kind", e)}
+                    />
+                    <FormField
+                      label="Breed"
+                      type="text"
+                      error={errors.breed?.message}
+                      name="breed"
+                      register={register}
+                      useBlur={true}
+                      onBlur={(e) => handleInputChange("breed", e)}
+                    />
+                    <FormField
+                      label="Pet Name"
+                      type="text"
+                      error={errors.petName?.message}
+                      name="petName"
+                      register={register}
+                      useBlur={true}
+                      onBlur={(e) => handleInputChange("petName", e)}
+                    />
                   </div>
-                  <FormField
-                    label="Color"
-                    type="text"
-                    error={errors.color?.message}
-                    name="color"
-                    register={register}
-                    useBlur={true}
-                    onBlur={(e) => handleInputChange("color", e)}
-                  />
+                  <div>
+                    <FormField
+                      label="Age"
+                      type="text"
+                      error={errors.age?.message}
+                      name="age"
+                      register={register}
+                      useBlur={true}
+                      onBlur={(e) => handleInputChange("age", e)}
+                    />
+                    <FormField
+                      label="Sex"
+                      type="select"
+                      error={errors.sex?.message}
+                      name="sex"
+                      register={register}
+                      useBlur={true}
+                      onBlur={(e) => handleInputChange("sex", e)}
+                    />
+                    <FormField
+                      label="Color"
+                      type="text"
+                      error={errors.color?.message}
+                      name="color"
+                      register={register}
+                      useBlur={true}
+                      onBlur={(e) => handleInputChange("color", e)}
+                    />
+                  </div>
                 </div>
               </div>
             ) : (
-              <div className={styles.inputContainerPet}>
-                <div>
-                  <FormField
-                    label="Kind"
-                    placeholder="Enter Kind"
-                    type="text"
-                    error={errors.kind?.message}
-                    name="kind"
-                    register={register}
-                    useBlur={true}
-                    onBlur={(e) => handleInputChange("kind", e)}
-                  />
-                  <FormField
-                    label="Breed"
-                    placeholder="Enter Breed"
-                    type="text"
-                    error={errors.breed?.message}
-                    name="breed"
-                    register={register}
-                    useBlur={true}
-                    onBlur={(e) => handleInputChange("breed", e)}
-                  />
-                  <FormField
-                    label="Pet Name"
-                    placeholder="Enter Pet Name"
-                    type="text"
-                    error={errors.petName?.message}
-                    name="petName"
-                    register={register}
-                    useBlur={true}
-                    onBlur={(e) => handleInputChange("petName", e)}
-                  />
-                </div>
-                <div>
-                  <FormField
-                    label="Age"
-                    placeholder="Enter Age"
-                    type="text"
-                    error={errors.age?.message}
-                    name="age"
-                    register={register}
-                    useBlur={true}
-                    onBlur={(e) => handleInputChange("age", e)}
-                  />
-                  <div className={styles.input}>
-                    <label>Sex: </label>
-                    <select
+              <div className="flex justify-center mt-4">
+                <div className="columns-2">
+                  <div>
+                    <FormField
+                      label="Kind"
+                      placeholder="Enter Kind"
                       type="text"
-                      {...register("sex")}
-                      onBlur={(e) =>
-                        setValueAppointment({
-                          ...valueAppointment,
-                          sex: e.target.value,
-                        })
-                      }
-                    >
-                      <option value="">Choose an option</option>
-                      <option>Male</option>
-                      <option>Female</option>
-                    </select>
-                    {errors && errors.sex ? (
-                      <span className={styles.error}>
-                        {errors.sex?.message}
-                      </span>
-                    ) : (
-                      "\u00A0"
-                    )}
+                      error={errors.kind?.message}
+                      name="kind"
+                      register={register}
+                      useBlur={true}
+                      onBlur={(e) => handleInputChange("kind", e)}
+                    />
+                    <FormField
+                      label="Breed"
+                      placeholder="Enter Breed"
+                      type="text"
+                      error={errors.breed?.message}
+                      name="breed"
+                      register={register}
+                      useBlur={true}
+                      onBlur={(e) => handleInputChange("breed", e)}
+                    />
+                    <FormField
+                      label="Pet Name"
+                      placeholder="Enter Pet Name"
+                      type="text"
+                      error={errors.petName?.message}
+                      name="petName"
+                      register={register}
+                      useBlur={true}
+                      onBlur={(e) => handleInputChange("petName", e)}
+                    />
                   </div>
-                  <FormField
-                    label="Color"
-                    placeholder="Enter Color"
-                    type="text"
-                    error={errors.color?.message}
-                    name="color"
-                    register={register}
-                    useBlur={true}
-                    onBlur={(e) => handleInputChange("color", e)}
-                  />
+                  <div>
+                    <FormField
+                      label="Age"
+                      placeholder="Enter Age"
+                      type="text"
+                      error={errors.age?.message}
+                      name="age"
+                      register={register}
+                      useBlur={true}
+                      onBlur={(e) => handleInputChange("age", e)}
+                    />
+                    <FormField
+                      label="Sex"
+                      type="select"
+                      error={errors.sex?.message}
+                      name="sex"
+                      register={register}
+                      useBlur={true}
+                      onBlur={(e) => handleInputChange("sex", e)}
+                    />
+                    <FormField
+                      label="Color"
+                      placeholder="Enter Color"
+                      type="text"
+                      error={errors.color?.message}
+                      name="color"
+                      register={register}
+                      useBlur={true}
+                      onBlur={(e) => handleInputChange("color", e)}
+                    />
+                  </div>
                 </div>
               </div>
             )}
@@ -547,7 +476,7 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
               <h3>PET HISTORY</h3>
             </div>
             {id ? (
-              <div className={styles.inputContainerHistory}>
+              <div className="flex justify-center mt-4">
                 <FormField
                   type="textarea"
                   error={errors.history?.message}
@@ -558,7 +487,7 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
                 />
               </div>
             ) : (
-              <div className={styles.inputContainerHistory}>
+              <div className="flex justify-center mt-4">
                 <FormField
                   placeholder="Enter History"
                   type="textarea"

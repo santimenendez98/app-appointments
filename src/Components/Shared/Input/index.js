@@ -53,6 +53,7 @@ function FormField({
             />
           ) : type === "select" ? (
             <select
+              {...inputProps}
               type={type}
               placeholder={placeholder}
               disabled={disabled}

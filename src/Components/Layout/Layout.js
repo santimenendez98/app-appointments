@@ -11,7 +11,11 @@ import ConfirmModal from "../Shared/ConfirmModal";
 import Loader from "../Shared/Loader";
 import Form from "../Form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faArrowRight,
+  faArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import Modal from "../Shared/Modal";
 
 function App() {
@@ -57,22 +61,26 @@ function App() {
     return `${year}-${month}-${day}`;
   }
 
-  const lastIndex = currentPage * 12;
+  const totalPages = Math.ceil(filteredAppointment.length / 8);
 
-  const firstIndex = lastIndex - 12;
+  const pageNumber = Array.from(
+    { length: totalPages },
+    (_, index) => index + 1
+  );
+
+  const lastIndex = currentPage * 8;
+  const firstIndex = lastIndex - 8;
 
   const itemToShow = filteredAppointment.slice(firstIndex, lastIndex);
 
-  const handlerClickPrevious = () => {
-    if (currentPage > 1) {
+  useEffect(() => {
+    if (itemToShow.length === 0 && currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
-  };
+  }, [itemToShow, currentPage]);
 
-  const handlerClickNext = () => {
-    if (lastIndex < filteredAppointment.length) {
-      setCurrentPage(currentPage + 1);
-    }
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
   const handlerConfirmModal = (id) => {
@@ -93,7 +101,6 @@ function App() {
         console.error(error);
       });
   };
-
   const handlerViewForm = (id) => {
     setViewForm(true);
     setIdtoEdit(id);
@@ -188,24 +195,39 @@ function App() {
       </div>
       <div className={styles.buttonContainer}>
         <div className={styles.paginationContainer}>
-          <button
-            onClick={handlerClickPrevious}
+          <div
+            className={currentPage === 1 ? styles.disabled : styles.previous}
+          >
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              <FontAwesomeIcon icon={faArrowLeft} />
+            </button>
+          </div>
+          <div className={styles.pages}>
+            {pageNumber.map((page, index) => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={styles.pagination}
+              >
+                {index === pageNumber.length - 1 ? page : page + ","}
+              </button>
+            ))}
+          </div>
+          <div
             className={
-              currentPage === 1 ? styles.disabledPagination : styles.pagination
+              currentPage === totalPages ? styles.disabled : styles.next
             }
           >
-            Previous
-          </button>
-          <button
-            onClick={handlerClickNext}
-            className={
-              lastIndex >= filteredAppointment.length
-                ? styles.disabledPagination
-                : styles.pagination
-            }
-          >
-            Next
-          </button>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              <FontAwesomeIcon icon={faArrowRight} />
+            </button>
+          </div>
         </div>
       </div>
       {confirmModal && (

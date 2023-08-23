@@ -13,7 +13,7 @@
 .filterContainer {
   display: flex;
   justify-content: space-between;
-  width: 90%;
+  width: 100%;
   margin: 20px auto;
 }
 
@@ -22,6 +22,8 @@
 }
 
 .filterClient {
+display: flex;
+flex-warp: nowrap;
 margin-left: 52px;
 }
 
@@ -106,16 +108,6 @@ margin-left: 52px;
   width: 90%;
 }
 
-.pagination {
-  cursor: pointer;
-  padding: 8px;
-  width: 10%;
-  background-color: #5bb882;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-family: "Roboto Slab", sans-serif;
-}
 
 .disabledPagination {
   padding: 8px;
@@ -129,7 +121,29 @@ margin-left: 52px;
 
 .paginationContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+}
+
+.pagination {
+  font-size: 20px
+}
+
+.pages {
+  margin-left: 10px;
+  margin-right: 10px
+}
+
+.previous {
+  margin-top: 3px
+}
+
+.next {
+  margin-top: 3px
+}
+
+.disabled {
+  margin-top: 3px;
+  color: red
 }
 
 @media (min-width: 1500px) {
@@ -142,13 +156,25 @@ margin-left: 52px;
   .cards {
     grid-template-columns: repeat(2, 1fr);
   }
-  .filter {
-    width: 50%
+  .filter input {
+    width: 90%
+  }
+  .filterClient {
+    flex-grow: 1;
+  }
+  .filterClient button {
+    width: 85px
   }
 }
 
-@media (max-width: 750px) {
+@media (max-width: 695px) {
   .cards {
     grid-template-columns: repeat(1, 1fr);
   }
+  .filter {
+  width: 90%;
+}
+.add {
+  width: 10%
+}
 }

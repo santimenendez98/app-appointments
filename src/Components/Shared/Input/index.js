@@ -37,6 +37,7 @@ function FormField({
             <textarea
               {...inputProps}
               placeholder={placeholder}
+              value={inputProps.value}
               className={
                 error
                   ? "w-96 md-sm:w-60 h-36 resize-none text-gray-900 ring-1 ring-inset ring-red-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -82,6 +83,7 @@ function FormField({
                 </>
               ) : (
                 <>
+                  <option value="">Choose an Option</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                 </>

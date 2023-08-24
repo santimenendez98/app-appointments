@@ -75,6 +75,7 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
     const isoDate = date.toISOString();
     return isoDate;
   }
+
   const handlerEdit = () => {
     if (!error) {
       dispatch(editAppointment(appointmentToEdit[0]._id, valueAppointment))
@@ -119,8 +120,6 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
       });
     }
   }
-
-  console.log(valueAppointment);
 
   const handleCreate = () => {
     dispatch(createAppointment(valueAppointment))
@@ -476,6 +475,7 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
             <div className={styles.subTitles}>
               <h3>PET HISTORY</h3>
             </div>
+            {console.log(valueAppointment)}
             {id ? (
               <div className="flex justify-center mt-4">
                 <FormField

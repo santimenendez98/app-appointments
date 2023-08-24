@@ -42,7 +42,7 @@ function cards({
           ) : (
             <div className={styles.personalData}>
               <p className={styles.dataName}>Last Paid Month:</p>
-              <p>{date}</p>
+              <p>{paidMonth}</p>
             </div>
           )}
         </div>

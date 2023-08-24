@@ -104,6 +104,7 @@ function App() {
   const handlerViewForm = (id) => {
     setViewForm(true);
     setIdtoEdit(id);
+    document.body.classList.add(styles.noScroll);
   };
 
   const handleCloseModal = () => {
@@ -113,6 +114,7 @@ function App() {
   const handleCloseForm = () => {
     setViewForm(false);
     setIdtoEdit("");
+    document.body.classList.remove(styles.noScroll);
   };
 
   const handleResetId = () => {
@@ -163,7 +165,7 @@ function App() {
             <button onClick={() => handleFilterClient(false)}>No Client</button>
           </div>
         </div>
-        <div className={styles.add} onClick={() => setViewForm(true)}>
+        <div className={styles.add} onClick={() => handlerViewForm()}>
           <FontAwesomeIcon icon={faPlus} />
         </div>
       </div>

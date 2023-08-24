@@ -17,13 +17,13 @@ function confirmModal({ actionDelete, actionCancel }) {
         </div>
         <div className={styles.buttons}>
           <div>
-            <button className={styles.confirmButton} onClick={actionDelete}>
-              Confirm
+            <button className={styles.cancelButton} onClick={actionCancel}>
+              Cancel
             </button>
           </div>
           <div>
-            <button className={styles.cancelButton} onClick={actionCancel}>
-              Cancel
+            <button className={styles.confirmButton} onClick={actionDelete}>
+              Confirm
             </button>
           </div>
         </div>

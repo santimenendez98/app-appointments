@@ -30,6 +30,7 @@ function App() {
   const [viewForm, setViewForm] = useState(false);
   const [toastModal, setToastModal] = useState("");
   const [showToastModal, setShowToastModal] = useState(false);
+  const [pageTitle, setPageTitle] = useState("Veterinary");
 
   useEffect(() => {
     dispatch(getAppointment());
@@ -40,6 +41,10 @@ function App() {
       setFilteredAppointment(appointment);
     }
   }, [appointment]);
+
+  useEffect(() => {
+    document.title = pageTitle;
+  }, [pageTitle]);
 
   const handlerFilter = (value) => {
     const filter = appointment.filter((appointments) => {
@@ -86,6 +91,8 @@ function App() {
   const handlerConfirmModal = (id) => {
     setConfirmIdToDelete(id);
     setConfirmModal(true);
+    setPageTitle("Remove User");
+    document.body.classList.add(styles.noScroll);
   };
 
   const handleDelete = () => {
@@ -96,6 +103,7 @@ function App() {
         setConfirmIdToDelete(false);
         setToastModal("Deleted Successfull");
         setShowToastModal(true);
+        document.body.classList.remove(styles.noScroll);
       })
       .catch((error) => {
         console.error(error);
@@ -105,16 +113,24 @@ function App() {
     setViewForm(true);
     setIdtoEdit(id);
     document.body.classList.add(styles.noScroll);
+    if (id) {
+      setPageTitle("Edit User");
+    } else {
+      setPageTitle("Create User");
+    }
   };
 
   const handleCloseModal = () => {
     setConfirmModal(false);
+    setPageTitle("Veterinary");
+    document.body.classList.remove(styles.noScroll);
   };
 
   const handleCloseForm = () => {
     setViewForm(false);
     setIdtoEdit("");
     document.body.classList.remove(styles.noScroll);
+    setPageTitle("Veterinary");
   };
 
   const handleResetId = () => {
@@ -209,16 +225,17 @@ function App() {
             </button>
           </div>
           <div className={styles.pages}>
-            {pageNumber.map((page, index) => (
+            {pageNumber.map((page) => (
               <button
                 key={page}
                 onClick={() => handlePageChange(page)}
                 className={styles.pagination}
               >
-                {index === pageNumber.length - 1 ? page : page + ","}
+                {page}
               </button>
             ))}
           </div>
+          {console.log(pageNumber)}
           <div
             className={
               currentPage === totalPages ? styles.disabled : styles.next

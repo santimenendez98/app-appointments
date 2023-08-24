@@ -123,7 +123,12 @@ flex-warp: nowrap;
 }
 
 .pagination {
-  font-size: 20px
+  font-size: 20px;
+  background-color: #B87048;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 5px 10px;
+  margin-right: 5px;
+  margin-left: 5px
 }
 
 .pages {

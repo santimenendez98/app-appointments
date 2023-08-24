@@ -158,15 +158,14 @@ display: flex;
   font-family: "Roboto Slab", sans-serif;
 }
 
-@media (max-width: 1500px) {
-  .formContainer {
-    width: 90%;
-    height: 90vh;
+@media (max-width: 1015px) {
+  .button {
+    width: 80%
   }
-  .inputContainer {
-    margin-left: 33%;
+  .editButton {
+    width: 100px
   }
-  .input {
-    margin-right: 10px;
+  .cancelButton {
+    width: 100px
   }
 }

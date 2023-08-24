@@ -12,7 +12,6 @@
 
 .filterContainer {
   display: flex;
-  justify-content: space-between;
   width: 100%;
   margin: 20px auto;
 }
@@ -24,7 +23,6 @@
 .filterClient {
 display: flex;
 flex-warp: nowrap;
-margin-left: 52px;
 }
 
 .filterClient button {
@@ -134,16 +132,17 @@ margin-left: 52px;
 }
 
 .previous {
-  margin-top: 3px
+  margin-top: 3px;
+  color: #B87048
 }
 
 .next {
-  margin-top: 3px
+  margin-top: 3px;
+  color: #B87048
 }
 
 .disabled {
   margin-top: 3px;
-  color: red
 }
 
 @media (min-width: 1500px) {
@@ -156,25 +155,25 @@ margin-left: 52px;
   .cards {
     grid-template-columns: repeat(2, 1fr);
   }
-  .filter input {
-    width: 90%
-  }
-  .filterClient {
-    flex-grow: 1;
-  }
-  .filterClient button {
-    width: 85px
-  }
 }
 
 @media (max-width: 695px) {
   .cards {
     grid-template-columns: repeat(1, 1fr);
   }
-  .filter {
-  width: 90%;
-}
-.add {
-  width: 10%
-}
+  .filterContainer {
+    flex-direction: column
+  }
+  .add {
+    margin-top: 20px;
+  }
+  .filter input {
+    width: 270px
+  }
+  .filterClient {
+    flex-grow: 2;
+  }
+  .filterClient button {
+    width: 85px
+  }
 }

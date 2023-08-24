@@ -154,6 +154,7 @@ function App() {
         <div className={styles.filter}>
           <SearchBar
             name={"Filter: "}
+            placeholder={"Filter with name, last name or ID"}
             action={(e) => handlerFilter(e.target.value.toLowerCase())}
           />
           <div className={styles.filterClient}>

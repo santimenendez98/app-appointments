@@ -158,7 +158,7 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
           <form>
             {id ? (
               <div className="flex justify-center mt-4">
-                <div className="columns-2">
+                <div className="lg:columns-2 sm:columns-1">
                   <FormField
                     label="Name"
                     type="text"
@@ -199,7 +199,7 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
               </div>
             ) : (
               <div className="flex justify-center mt-4">
-                <div className="columns-2">
+                <div className="lg:columns-2 sm:columns-1">
                   <FormField
                     label="Name"
                     placeholder="Enter Name"
@@ -248,7 +248,7 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
             </div>
             {id ? (
               <div className="flex justify-center mt-4">
-                <div className="columns-2">
+                <div className="lg:columns-2 sm:columns-1">
                   <FormField
                     label="Is Client?"
                     type="checkbox"
@@ -295,7 +295,7 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
               </div>
             ) : (
               <div className="flex justify-center mt-4">
-                <div className="columns-2">
+                <div className="lg:columns-2 sm:columns-1">
                   <FormField
                     label="Is Client?"
                     type="checkbox"
@@ -343,7 +343,7 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
             </div>
             {id ? (
               <div className="flex justify-center mt-4">
-                <div className="columns-2">
+                <div className="lg:columns-2 sm:columns-1">
                   <div>
                     <FormField
                       label="Kind"
@@ -406,7 +406,7 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
               </div>
             ) : (
               <div className="flex justify-center mt-4">
-                <div className="columns-2">
+                <div className="lg:columns-2 sm:columns-1">
                   <div>
                     <FormField
                       label="Kind"

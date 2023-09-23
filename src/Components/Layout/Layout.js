@@ -17,6 +17,7 @@ import {
   faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../Shared/Modal";
+import { deletePet, getPet } from "../../Redux/Pet/thunk";
 
 function App() {
   const appointment = useSelector((state) => state.appointment.data);
@@ -31,9 +32,11 @@ function App() {
   const [toastModal, setToastModal] = useState("");
   const [showToastModal, setShowToastModal] = useState(false);
   const [pageTitle, setPageTitle] = useState("Veterinary");
+  const [confirmPetIdToDelete, setConfirmPetIdToDelete] = useState("");
 
   useEffect(() => {
     dispatch(getAppointment());
+    dispatch(getPet());
   }, [dispatch]);
 
   useEffect(() => {
@@ -88,15 +91,17 @@ function App() {
     setCurrentPage(page);
   };
 
-  const handlerConfirmModal = (id) => {
-    setConfirmIdToDelete(id);
+  const handlerConfirmModal = (idAppointment, idPet) => {
+    setConfirmPetIdToDelete(idPet);
+    setConfirmIdToDelete(idAppointment);
     setConfirmModal(true);
     setPageTitle("Remove User");
     document.body.classList.add(styles.noScroll);
   };
 
   const handleDelete = () => {
-    dispatch(deleteAppointment(confirmIdtoDelete))
+    dispatch(deleteAppointment(confirmIdtoDelete));
+    dispatch(deletePet(confirmPetIdToDelete))
       .then(() => {
         dispatch(getAppointment());
         setConfirmModal(false);
@@ -207,7 +212,9 @@ function App() {
               paidMonth={appointments.paidMonth}
               date={isoToNormalDate(appointments.date)}
               actionView={() => handlerViewForm(appointments._id)}
-              actionDelete={() => handlerConfirmModal(appointments._id)}
+              actionDelete={() =>
+                handlerConfirmModal(appointments._id, appointments.pet[0]?._id)
+              }
             />
           </div>
         ))}

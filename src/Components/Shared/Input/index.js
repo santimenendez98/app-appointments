@@ -10,10 +10,10 @@ function FormField({
   name,
   error,
   disabled,
-  style,
   useBlur,
   onBlur,
   onChange,
+  value,
 }) {
   const inputProps = {
     defaultValue: defaultValue,
@@ -21,6 +21,7 @@ function FormField({
     ...(useBlur
       ? { onBlur: (e) => onBlur(e.target.value) }
       : { onChange: (e) => onChange(e.target.value) }),
+    value: value,
   };
 
   return (
@@ -37,7 +38,6 @@ function FormField({
             <textarea
               {...inputProps}
               placeholder={placeholder}
-              value={inputProps.value}
               className={
                 error
                   ? "w-96 md-sm:w-60 h-36 resize-none text-gray-900 ring-1 ring-inset ring-red-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"

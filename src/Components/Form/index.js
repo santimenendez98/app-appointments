@@ -6,6 +6,7 @@ import {
   createAppointment,
   getAppointment,
 } from "../../Redux/Appointment/thunks";
+import { createPet, editPet, getPet } from "../../Redux/Pet/thunk";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import Loader from "../Shared/Loader";
@@ -13,19 +14,30 @@ import { joiResolver } from "@hookform/resolvers/joi";
 import { useForm } from "react-hook-form";
 import appointmentSchema from "../../Validations/appointments";
 import FormField from "../Shared/Input";
+import { useEffect } from "react";
 
 function Form({ id, close, resetId, setMessageModal, showToastModal }) {
   const dispatch = useDispatch();
   const appointment = useSelector((state) => state.appointment.data);
   const error = useSelector((state) => state.appointment.error);
   const isPending = useSelector((state) => state.appointment.isPending);
+  const pet = useSelector((state) => state.pet.data);
+  const petPending = useSelector((state) => state.pet.isPending);
 
   const appointmentToEdit = appointment.filter((data) => data._id === id);
+  const petToEdit = pet.filter(
+    (data) => data._id === appointmentToEdit[0]?.pet[0]?._id
+  );
   const [valueAppointment, setValueAppointment] = useState({
     isClient: appointmentToEdit[0]?.isClient || false,
     clientID: appointmentToEdit[0]?.clientID || "No Client",
     paidMonth: appointmentToEdit[0]?.paidMonth || "No Client",
   });
+  const [valuePet, setValuePet] = useState({});
+  const [bothPending, setBothPending] = useState(false);
+  const [selectedPetId, setSelectedPetId] = useState(
+    appointmentToEdit[0]?.pet[0]?._id || ""
+  );
   const {
     register,
     handleSubmit,
@@ -51,13 +63,15 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
           : "",
       date: appointment ? isoToNormalDate(appointmentToEdit[0]?.date) : "",
       paidMonth: appointment ? appointmentToEdit[0]?.paidMonth : "",
-      kind: appointment ? appointmentToEdit[0]?.kind : "",
-      breed: appointment ? appointmentToEdit[0]?.breed : "",
-      petName: appointment ? appointmentToEdit[0]?.petName : "",
-      age: appointment ? appointmentToEdit[0]?.age : "",
-      sex: appointment ? appointmentToEdit[0]?.sex : "",
-      color: appointment ? appointmentToEdit[0]?.color : "",
-      history: appointment ? appointmentToEdit[0]?.history : "",
+      pet: {
+        kind: petToEdit ? petToEdit[0]?.kind : "",
+        breed: petToEdit ? petToEdit[0]?.breed : "",
+        petName: petToEdit ? petToEdit[0]?.petName : "",
+        age: petToEdit ? petToEdit[0]?.age : "",
+        sex: petToEdit ? petToEdit[0]?.sex : "",
+        color: petToEdit ? petToEdit[0]?.color : "",
+        history: petToEdit ? petToEdit[0]?.history : "",
+      },
       isClient: appointment ? appointmentToEdit[0]?.isClient : "",
     },
   });
@@ -76,15 +90,24 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
     return isoDate;
   }
 
+  useEffect(() => {
+    setBothPending(isPending && petPending);
+  }, [isPending, petPending]);
+
   const handlerEdit = () => {
     if (!error) {
-      dispatch(editAppointment(appointmentToEdit[0]._id, valueAppointment))
+      dispatch(editPet(selectedPetId, valuePet))
         .then(() => {
-          dispatch(getAppointment());
-          setMessageModal("Appointment Edited Success");
-          showToastModal(true);
-          close();
-          resetId();
+          dispatch(
+            editAppointment(appointmentToEdit[0]._id, valueAppointment)
+          ).then(() => {
+            dispatch(getPet());
+            dispatch(getAppointment());
+            setMessageModal("Appointment Edited Success");
+            showToastModal(true);
+            close();
+            resetId();
+          });
         })
         .catch((error) => {
           console.error(error);
@@ -93,7 +116,13 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
   };
 
   function handleInputChange(fieldName, value) {
-    if (fieldName === "isClient") {
+    if (fieldName.startsWith("pet.")) {
+      const petFieldName = fieldName.substring(4);
+      setValuePet((prevState) => ({
+        ...prevState,
+        [petFieldName]: value,
+      }));
+    } else if (fieldName === "isClient") {
       const isClientValue = !valueAppointment.isClient;
 
       if (!isClientValue) {
@@ -121,20 +150,51 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
     }
   }
 
-  const handleCreate = () => {
-    dispatch(createAppointment(valueAppointment))
-      .then(() => {
+  const handleCreate = async () => {
+    if (!error) {
+      try {
+        const petResponse = await dispatch(createPet(valuePet));
+        const newPetId = petResponse.data._id;
+
+        const appointmentData = {
+          ...valueAppointment,
+          pet: [{ _id: newPetId }],
+        };
+
+        await dispatch(createAppointment(appointmentData));
+
+        dispatch(getPet());
         dispatch(getAppointment());
         setMessageModal("Appointment Created Success");
         showToastModal(true);
         close();
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error(error);
-      });
+      }
+    }
   };
 
-  if (isPending) {
+  function selectedPet(pet) {
+    const selectedPet = pet.target.value;
+
+    const selectedPetData = appointmentToEdit[0].pet.find(
+      (pet) => pet.petName === selectedPet
+    );
+
+    setSelectedPetId(selectedPetData._id);
+
+    document.getElementsByName("pet.kind")[0].value = selectedPetData.kind;
+    document.getElementsByName("pet.breed")[0].value = selectedPetData.breed;
+    document.getElementsByName("pet.petName")[0].value =
+      selectedPetData.petName;
+    document.getElementsByName("pet.color")[0].value = selectedPetData.color;
+    document.getElementsByName("pet.sex")[0].value = selectedPetData.sex;
+    document.getElementsByName("pet.history")[0].value =
+      selectedPetData.history;
+    document.getElementsByName("pet.age")[0].value = selectedPetData.age;
+  }
+
+  if (bothPending) {
     return (
       <>
         <Loader />
@@ -341,64 +401,77 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
               <h3>PET INFORMATION</h3>
             </div>
             {id ? (
-              <div className="flex justify-center mt-4">
+              <div className="flex flex-col mt-4 items-center">
+                <div className="mb-5">
+                  <label className="mb-2 mr-5 block text-sm font-medium leading-6 text-gray-900">
+                    Choose Pet
+                  </label>
+                  <select
+                    onChange={(e) => selectedPet(e)}
+                    className="block w-26 h-10 md-sm:w-60 rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  >
+                    {appointmentToEdit[0].pet.map((pet) => (
+                      <option>{pet.petName}</option>
+                    ))}
+                  </select>
+                </div>
                 <div className="lg:columns-2 sm:columns-1">
                   <div>
                     <FormField
                       label="Kind"
                       type="text"
-                      error={errors.kind?.message}
-                      name="kind"
+                      error={errors.pet?.kind?.message}
+                      name="pet.kind"
                       register={register}
                       useBlur={true}
-                      onBlur={(e) => handleInputChange("kind", e)}
+                      onBlur={(e) => handleInputChange("pet.kind", e)}
                     />
                     <FormField
                       label="Breed"
                       type="text"
-                      error={errors.breed?.message}
-                      name="breed"
+                      error={errors.pet?.breed?.message}
+                      name="pet.breed"
                       register={register}
                       useBlur={true}
-                      onBlur={(e) => handleInputChange("breed", e)}
+                      onBlur={(e) => handleInputChange("pet.breed", e)}
                     />
                     <FormField
                       label="Pet Name"
                       type="text"
-                      error={errors.petName?.message}
-                      name="petName"
+                      error={errors.pet?.petName?.message}
+                      name="pet.petName"
                       register={register}
                       useBlur={true}
-                      onBlur={(e) => handleInputChange("petName", e)}
+                      onBlur={(e) => handleInputChange("pet.petName", e)}
                     />
                   </div>
                   <div>
                     <FormField
                       label="Age"
                       type="text"
-                      error={errors.age?.message}
-                      name="age"
+                      error={errors.pet?.age?.message}
+                      name="pet.age"
                       register={register}
                       useBlur={true}
-                      onBlur={(e) => handleInputChange("age", e)}
+                      onBlur={(e) => handleInputChange("pet.age", e)}
                     />
                     <FormField
                       label="Sex"
                       type="select"
-                      error={errors.sex?.message}
-                      name="sex"
+                      error={errors.pet?.sex?.message}
+                      name="pet.sex"
                       register={register}
                       useBlur={true}
-                      onBlur={(e) => handleInputChange("sex", e)}
+                      onBlur={(e) => handleInputChange("pet.sex", e)}
                     />
                     <FormField
                       label="Color"
                       type="text"
-                      error={errors.color?.message}
-                      name="color"
+                      error={errors.pet?.color?.message}
+                      name="pet.color"
                       register={register}
                       useBlur={true}
-                      onBlur={(e) => handleInputChange("color", e)}
+                      onBlur={(e) => handleInputChange("pet.color", e)}
                     />
                   </div>
                 </div>
@@ -411,31 +484,31 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
                       label="Kind"
                       placeholder="Enter Kind"
                       type="text"
-                      error={errors.kind?.message}
-                      name="kind"
+                      error={errors.pet?.kind?.message}
+                      name="pet.kind"
                       register={register}
                       useBlur={true}
-                      onBlur={(e) => handleInputChange("kind", e)}
+                      onBlur={(e) => handleInputChange("pet.kind", e)}
                     />
                     <FormField
                       label="Breed"
                       placeholder="Enter Breed"
                       type="text"
-                      error={errors.breed?.message}
-                      name="breed"
+                      error={errors.pet?.breed?.message}
+                      name="pet.breed"
                       register={register}
                       useBlur={true}
-                      onBlur={(e) => handleInputChange("breed", e)}
+                      onBlur={(e) => handleInputChange("pet.breed", e)}
                     />
                     <FormField
                       label="Pet Name"
                       placeholder="Enter Pet Name"
                       type="text"
-                      error={errors.petName?.message}
-                      name="petName"
+                      error={errors.pet?.petName?.message}
+                      name="pet.petName"
                       register={register}
                       useBlur={true}
-                      onBlur={(e) => handleInputChange("petName", e)}
+                      onBlur={(e) => handleInputChange("pet.petName", e)}
                     />
                   </div>
                   <div>
@@ -443,30 +516,30 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
                       label="Age"
                       placeholder="Enter Age"
                       type="text"
-                      error={errors.age?.message}
-                      name="age"
+                      error={errors.pet?.age?.message}
+                      name="pet.age"
                       register={register}
                       useBlur={true}
-                      onBlur={(e) => handleInputChange("age", e)}
+                      onBlur={(e) => handleInputChange("pet.age", e)}
                     />
                     <FormField
                       label="Sex"
                       type="select"
-                      error={errors.sex?.message}
-                      name="sex"
+                      error={errors.pet?.sex?.message}
+                      name="pet.sex"
                       register={register}
                       useBlur={true}
-                      onBlur={(e) => handleInputChange("sex", e)}
+                      onBlur={(e) => handleInputChange("pet.sex", e)}
                     />
                     <FormField
                       label="Color"
                       placeholder="Enter Color"
                       type="text"
-                      error={errors.color?.message}
-                      name="color"
+                      error={errors.pet?.color?.message}
+                      name="pet.color"
                       register={register}
                       useBlur={true}
-                      onBlur={(e) => handleInputChange("color", e)}
+                      onBlur={(e) => handleInputChange("pet.color", e)}
                     />
                   </div>
                 </div>
@@ -475,15 +548,14 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
             <div className={styles.subTitles}>
               <h3>PET HISTORY</h3>
             </div>
-            {console.log(valueAppointment)}
             {id ? (
               <div className="flex justify-center mt-4">
                 <FormField
                   type="textarea"
-                  error={errors.history?.message}
-                  name="history"
+                  error={errors.pet?.history?.message}
+                  name="pet.history"
                   register={register}
-                  onBlur={(e) => handleInputChange("history", e)}
+                  onBlur={(e) => handleInputChange("pet.history", e)}
                   useBlur={true}
                 />
               </div>
@@ -492,10 +564,10 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
                 <FormField
                   placeholder="Enter History"
                   type="textarea"
-                  error={errors.history?.message}
-                  name="history"
+                  error={errors.pet?.history?.message}
+                  name="pet.history"
                   register={register}
-                  onBlur={(e) => handleInputChange("history", e)}
+                  onBlur={(e) => handleInputChange("pet.history", e)}
                   useBlur={true}
                 />
               </div>

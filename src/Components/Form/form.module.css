@@ -89,15 +89,15 @@
 
 .title {
 display: flex;
-  font-family: "Roboto", sans-serif;
-  color: #3a3949;
-  font-size: 25px;
-  background-color: #E3E3E3;
-  width: 100%;
-  height: 8vh;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
+    font-family: "Roboto", sans-serif;
+    color: #3a3949;
+    font-size: 25px;
+    background-color: #E3E3E3;
+    width: 100%;
+    height: 6vh;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
 }
 
 .petHistory {
@@ -158,8 +158,20 @@ display: flex;
   font-family: "Roboto Slab", sans-serif;
 }
 
-.pointerIcons {
+.addPet {
   cursor: pointer
+}
+
+.addPet:hover {
+  color: green;
+}
+
+.deletePet {
+  cursor: pointer
+}
+
+.deletePet:hover {
+  color: red
 }
 
 @media (max-width: 1023px) {

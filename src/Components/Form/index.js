@@ -433,31 +433,31 @@ function Form({
             {id ? (
               <div className="flex flex-col mt-4 items-center">
                 <div className="mb-5">
-                  <div className="flex justify-between mb-2">
+                  <div className="flex justify-between mb-2 items-center w-96">
                     <label className="mb-2 mr-5 block text-sm font-medium leading-6 text-gray-900">
                       Choose Pet
                     </label>
+                    <select
+                      onChange={(e) => selectedPet(e)}
+                      className="block w-7/12 h-10 rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    >
+                      {appointmentToEdit[0].pet.map((pet) => (
+                        <option>{pet.petName}</option>
+                      ))}
+                    </select>
                     <FontAwesomeIcon
                       icon={faPlus}
                       size="lg"
-                      className={styles.pointerIcons}
+                      className={styles.addPet}
                       onClick={() => handleAddPet()}
                     />
                     <FontAwesomeIcon
                       icon={faTrash}
                       size="lg"
-                      className={styles.pointerIcons}
+                      className={styles.deletePet}
                       onClick={() => setConfirmDeletePet(true)}
                     />
                   </div>
-                  <select
-                    onChange={(e) => selectedPet(e)}
-                    className="block w-26 h-10 rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  >
-                    {appointmentToEdit[0].pet.map((pet) => (
-                      <option>{pet.petName}</option>
-                    ))}
-                  </select>
                 </div>
                 <div className="lg:columns-2 sm:columns-1">
                   <div>

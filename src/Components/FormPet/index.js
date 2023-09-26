@@ -53,9 +53,7 @@ function FormPet({ actionCancel, id, showToastModal, setMessageModal }) {
     <div className={styles.container}>
       <div className={styles.formContainer}>
         <div className={styles.title}>
-          <div>
-            <h2>ADD PET</h2>
-          </div>
+          <h2>ADD PET</h2>
         </div>
         <div className="overflow-y-scroll overflow-x-hidden flex flex-col items-center w-full pt-10">
           <div className="lg:columns-2 sm:columns-1 pl-5 pr-5">

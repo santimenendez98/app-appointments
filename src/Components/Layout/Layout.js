@@ -261,6 +261,7 @@ function App() {
         <ConfirmModal
           actionDelete={handleDelete}
           actionCancel={handleCloseModal}
+          title="Delete Appointment"
         />
       )}
       {viewForm && (

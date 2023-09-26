@@ -6,7 +6,7 @@ import {
   createAppointment,
   getAppointment,
 } from "../../Redux/Appointment/thunks";
-import { createPet, editPet, getPet } from "../../Redux/Pet/thunk";
+import { createPet, deletePet, editPet, getPet } from "../../Redux/Pet/thunk";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import Loader from "../Shared/Loader";
@@ -15,8 +15,19 @@ import { useForm } from "react-hook-form";
 import appointmentSchema from "../../Validations/appointments";
 import FormField from "../Shared/Input";
 import { useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import FormPet from "../FormPet";
+import ConfirmModal from "../Shared/ConfirmModal";
 
-function Form({ id, close, resetId, setMessageModal, showToastModal }) {
+function Form({
+  id,
+  close,
+  resetId,
+  setMessageModal,
+  showToastModal,
+  showModal,
+}) {
   const dispatch = useDispatch();
   const appointment = useSelector((state) => state.appointment.data);
   const error = useSelector((state) => state.appointment.error);
@@ -24,9 +35,11 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
   const pet = useSelector((state) => state.pet.data);
   const petPending = useSelector((state) => state.pet.isPending);
 
+  const [confirmDeletePet, setConfirmDeletePet] = useState(false);
+
   const appointmentToEdit = appointment.filter((data) => data._id === id);
   const petToEdit = pet.filter(
-    (data) => data._id === appointmentToEdit[0]?.pet[0]?._id
+    (data) => data?._id === appointmentToEdit[0]?.pet[0]?._id
   );
   const [valueAppointment, setValueAppointment] = useState({
     isClient: appointmentToEdit[0]?.isClient || false,
@@ -38,6 +51,7 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
   const [selectedPetId, setSelectedPetId] = useState(
     appointmentToEdit[0]?.pet[0]?._id || ""
   );
+  const [viewFormAddPet, setViewFormAddPet] = useState(false);
   const {
     register,
     handleSubmit,
@@ -112,6 +126,20 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
         .catch((error) => {
           console.error(error);
         });
+    }
+  };
+
+  const handleDeletePet = async () => {
+    try {
+      await dispatch(deletePet(selectedPetId));
+
+      setConfirmDeletePet(false);
+      dispatch(getPet());
+      dispatch(getAppointment());
+      setMessageModal("Pet Deleted Success");
+      showToastModal(true);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -194,6 +222,10 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
     document.getElementsByName("pet.age")[0].value = selectedPetData.age;
   }
 
+  function handleAddPet() {
+    setViewFormAddPet(true);
+  }
+
   if (bothPending) {
     return (
       <>
@@ -206,9 +238,7 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
     <div className={styles.container}>
       <div className={styles.formContainer}>
         <div className={styles.title}>
-          <div>
-            {id ? <h2>EDIT APPOINTMENT</h2> : <h2>CREATE APPOINTMENT</h2>}
-          </div>
+          {id ? <h2>EDIT APPOINTMENT</h2> : <h2>CREATE APPOINTMENT</h2>}
         </div>
         <div className={styles.dataContainer}>
           <div className={styles.subTitles}>
@@ -403,9 +433,23 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
             {id ? (
               <div className="flex flex-col mt-4 items-center">
                 <div className="mb-5">
-                  <label className="mb-2 mr-5 block text-sm font-medium leading-6 text-gray-900">
-                    Choose Pet
-                  </label>
+                  <div className="flex justify-between mb-2">
+                    <label className="mb-2 mr-5 block text-sm font-medium leading-6 text-gray-900">
+                      Choose Pet
+                    </label>
+                    <FontAwesomeIcon
+                      icon={faPlus}
+                      size="lg"
+                      className={styles.pointerIcons}
+                      onClick={() => handleAddPet()}
+                    />
+                    <FontAwesomeIcon
+                      icon={faTrash}
+                      size="lg"
+                      className={styles.pointerIcons}
+                      onClick={() => setConfirmDeletePet(true)}
+                    />
+                  </div>
                   <select
                     onChange={(e) => selectedPet(e)}
                     className="block w-26 h-10 rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -594,6 +638,21 @@ function Form({ id, close, resetId, setMessageModal, showToastModal }) {
           </div>
         </div>
       </div>
+      {viewFormAddPet && (
+        <FormPet
+          actionCancel={() => setViewFormAddPet(false)}
+          id={appointmentToEdit[0]._id}
+          showToastModal={showToastModal}
+          setMessageModal={setMessageModal}
+        />
+      )}
+      {confirmDeletePet && (
+        <ConfirmModal
+          title="Delete Pet"
+          actionCancel={() => setConfirmDeletePet(false)}
+          actionDelete={handleDeletePet}
+        />
+      )}
     </div>
   );
 }

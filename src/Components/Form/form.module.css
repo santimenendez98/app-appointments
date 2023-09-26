@@ -158,6 +158,10 @@ display: flex;
   font-family: "Roboto Slab", sans-serif;
 }
 
+.pointerIcons {
+  cursor: pointer
+}
+
 @media (max-width: 1023px) {
   .formContainer {
     width: 100%;

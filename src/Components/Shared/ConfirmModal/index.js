@@ -1,13 +1,13 @@
 import React from "react";
 import styles from "./confirmModal.module.css";
 
-function confirmModal({ actionDelete, actionCancel }) {
+function confirmModal({ actionDelete, actionCancel, title }) {
   return (
     <div className={styles.container}>
       <div className={styles.confirmModalContainer}>
         <div>
           <div className={styles.title}>
-            <h2>Delete Appointment</h2>
+            <h2>{title}</h2>
           </div>
         </div>
         <div>

@@ -54,7 +54,7 @@ const pet = Joi.object({
       "string.min": "Color should have a 3 characters",
     })
     .required(),
-  history: Joi.string()
+  history: Joi.array()
     .min(1)
     .messages({
       "string.empty": "History is required",

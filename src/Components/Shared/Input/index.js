@@ -68,7 +68,7 @@ function FormField({
             >
               {name === "paidMonth" ? (
                 <>
-                  <option value="">Choose an option</option>
+                  <option value="No Client">Choose an option</option>
                   <option value="Jenuary">January</option>
                   <option value="February">February</option>
                   <option value="March">March</option>

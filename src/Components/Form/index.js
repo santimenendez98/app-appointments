@@ -146,10 +146,17 @@ function Form({
   function handleInputChange(fieldName, value) {
     if (fieldName.startsWith("pet.")) {
       const petFieldName = fieldName.substring(4);
-      setValuePet((prevState) => ({
-        ...prevState,
-        [petFieldName]: value,
-      }));
+      if (petFieldName === "history") {
+        setValuePet((prevState) => ({
+          ...prevState,
+          [petFieldName]: [value],
+        }));
+      } else {
+        setValuePet((prevState) => ({
+          ...prevState,
+          [petFieldName]: value,
+        }));
+      }
     } else if (fieldName === "isClient") {
       const isClientValue = !valueAppointment.isClient;
 
@@ -177,6 +184,8 @@ function Form({
       });
     }
   }
+
+  console.log(valuePet);
 
   const handleCreate = async () => {
     if (!error) {

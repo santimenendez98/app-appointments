@@ -238,7 +238,14 @@ function Form({
     <div className={styles.container}>
       <div className={styles.formContainer}>
         <div className={styles.title}>
-          {id ? <h2>EDIT APPOINTMENT</h2> : <h2>CREATE APPOINTMENT</h2>}
+          {id ? (
+            <h2>
+              {appointmentToEdit[0].name.toUpperCase()}{" "}
+              {appointmentToEdit[0].lastName.toUpperCase()} PROFILE
+            </h2>
+          ) : (
+            <h2>CREATE APPOINTMENT</h2>
+          )}
         </div>
         <div className={styles.dataContainer}>
           <div className={styles.subTitles}>
@@ -247,7 +254,7 @@ function Form({
           <form>
             {id ? (
               <div className="flex justify-center mt-4">
-                <div className="lg:columns-2 sm:columns-1">
+                <div className="lg:columns-2 sm:columns-1 border pl-3 pt-3">
                   <FormField
                     label="Name"
                     type="text"
@@ -288,7 +295,7 @@ function Form({
               </div>
             ) : (
               <div className="flex justify-center mt-4">
-                <div className="lg:columns-2 sm:columns-1">
+                <div className="lg:columns-2 sm:columns-1 border pl-3 pt-3">
                   <FormField
                     label="Name"
                     placeholder="Enter Name"
@@ -337,7 +344,7 @@ function Form({
             </div>
             {id ? (
               <div className="flex justify-center mt-4">
-                <div className="lg:columns-2 sm:columns-1">
+                <div className="lg:columns-2 sm:columns-1 border pl-3 pt-3">
                   <FormField
                     label="Is Client?"
                     type="checkbox"
@@ -384,7 +391,7 @@ function Form({
               </div>
             ) : (
               <div className="flex justify-center mt-4">
-                <div className="lg:columns-2 sm:columns-1">
+                <div className="lg:columns-2 sm:columns-1 border pl-3 pt-3">
                   <FormField
                     label="Is Client?"
                     type="checkbox"
@@ -431,35 +438,41 @@ function Form({
               <h3>PET INFORMATION</h3>
             </div>
             {id ? (
-              <div className="flex flex-col mt-4 items-center">
+              <div className="flex flex-col mt-4 items-center ">
                 <div className="mb-5">
-                  <div className="flex justify-between mb-2 items-center w-96">
-                    <label className="mb-2 mr-5 block text-sm font-medium leading-6 text-gray-900">
-                      Choose Pet
-                    </label>
-                    <select
-                      onChange={(e) => selectedPet(e)}
-                      className="block w-7/12 h-10 rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    >
-                      {appointmentToEdit[0].pet.map((pet) => (
-                        <option>{pet.petName}</option>
-                      ))}
-                    </select>
-                    <FontAwesomeIcon
-                      icon={faPlus}
-                      size="lg"
-                      className={styles.addPet}
-                      onClick={() => handleAddPet()}
-                    />
-                    <FontAwesomeIcon
-                      icon={faTrash}
-                      size="lg"
-                      className={styles.deletePet}
-                      onClick={() => setConfirmDeletePet(true)}
-                    />
+                  <div className="md:flex mb-2 items-center w-full justify-center">
+                    <div>
+                      <label className="mb-2 mr-5 block text-sm font-medium leading-6 text-gray-900">
+                        Choose Pet
+                      </label>
+                    </div>
+                    <div className="flex items-center">
+                      <select
+                        onChange={(e) => selectedPet(e)}
+                        className="block w-full h-10 rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      >
+                        {appointmentToEdit[0].pet.map((pet) => (
+                          <option>{pet.petName}</option>
+                        ))}
+                      </select>
+                      <div className="flex p-3">
+                        <FontAwesomeIcon
+                          icon={faPlus}
+                          size="lg"
+                          className={styles.addPet}
+                          onClick={() => handleAddPet()}
+                        />
+                        <FontAwesomeIcon
+                          icon={faTrash}
+                          size="lg"
+                          className={styles.deletePet}
+                          onClick={() => setConfirmDeletePet(true)}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className="lg:columns-2 sm:columns-1">
+                <div className="lg:columns-2 sm:columns-1 border pl-3 pt-3">
                   <div>
                     <FormField
                       label="Kind"
@@ -522,7 +535,7 @@ function Form({
               </div>
             ) : (
               <div className="flex justify-center mt-4">
-                <div className="lg:columns-2 sm:columns-1">
+                <div className="lg:columns-2 sm:columns-1 border pl-3 pt-3">
                   <div>
                     <FormField
                       label="Kind"

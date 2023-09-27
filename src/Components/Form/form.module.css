@@ -159,7 +159,8 @@ display: flex;
 }
 
 .addPet {
-  cursor: pointer
+  cursor: pointer;
+  padding: 5px
 }
 
 .addPet:hover {
@@ -167,7 +168,8 @@ display: flex;
 }
 
 .deletePet {
-  cursor: pointer
+  cursor: pointer;
+  padding: 5px
 }
 
 .deletePet:hover {

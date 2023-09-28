@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useSelector } from "react-redux";
 import styles from "./form.module.css";
 import {
@@ -38,6 +38,7 @@ function Form({
   const petPending = useSelector((state) => state.pet.isPending);
 
   const [confirmDeletePet, setConfirmDeletePet] = useState(false);
+  const historyRef = useRef();
 
   const appointmentToEdit = appointment.filter((data) => data._id === id);
   const petToEdit = pet.filter(
@@ -48,11 +49,11 @@ function Form({
     clientID: appointmentToEdit[0]?.clientID || "No Client",
     paidMonth: appointmentToEdit[0]?.paidMonth || "No Client",
   });
-  const [valuePet, setValuePet] = useState({});
   const [bothPending, setBothPending] = useState(false);
   const [selectedPetId, setSelectedPetId] = useState(
     appointmentToEdit[0]?.pet[0]?._id || ""
   );
+  const [valuePet, setValuePet] = useState({});
   const [viewFormAddPet, setViewFormAddPet] = useState(false);
   const {
     register,
@@ -210,14 +211,21 @@ function Form({
     }
   };
 
-  function selectedPet(pet) {
-    const selectedPet = pet.target.value;
-
+  function selectedPet(value) {
     const selectedPetData = appointmentToEdit[0].pet.find(
-      (pet) => pet.petName === selectedPet
+      (pet) => pet._id === value
     );
 
     setSelectedPetId(selectedPetData._id);
+
+    if (selectedPetData) {
+      const quill = historyRef.current.getEditor();
+      const newContent = JSON.parse(selectedPetData.history[0]);
+
+      const delta = quill.clipboard.convert(newContent);
+
+      quill.setContents(delta);
+    }
 
     document.getElementsByName("pet.kind")[0].value = selectedPetData.kind;
     document.getElementsByName("pet.breed")[0].value = selectedPetData.breed;
@@ -225,8 +233,7 @@ function Form({
       selectedPetData.petName;
     document.getElementsByName("pet.color")[0].value = selectedPetData.color;
     document.getElementsByName("pet.sex")[0].value = selectedPetData.sex;
-    document.getElementsByName("pet.history")[0].value =
-      selectedPetData.history;
+
     document.getElementsByName("pet.age")[0].value = selectedPetData.age;
   }
 
@@ -256,8 +263,6 @@ function Form({
   const module = {
     toolbar: toolbarOptions,
   };
-
-  console.log(valuePet);
 
   if (bothPending) {
     return (
@@ -481,11 +486,11 @@ function Form({
                     </div>
                     <div className="flex items-center">
                       <select
-                        onChange={(e) => selectedPet(e)}
+                        onChange={(e) => selectedPet(e.target.value)}
                         className="block w-full h-10 rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       >
                         {appointmentToEdit[0].pet.map((pet) => (
-                          <option>{pet.petName}</option>
+                          <option value={pet._id}>{pet.petName}</option>
                         ))}
                       </select>
                       <div className="flex p-3">
@@ -639,6 +644,7 @@ function Form({
               <h3>PET HISTORY</h3>
             </div>
             <div className="flex justify-center mt-4">
+              {console.log(petToEdit)}
               {id ? (
                 <ReactQuill
                   theme="snow"
@@ -648,6 +654,7 @@ function Form({
                   className={styles.textEditor}
                   modules={module}
                   defaultValue={JSON.parse(petToEdit[0]?.history[0])}
+                  ref={historyRef}
                 />
               ) : (
                 <ReactQuill

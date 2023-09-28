@@ -218,11 +218,19 @@ function Form({
 
     setSelectedPetId(selectedPetData._id);
 
-    if (selectedPetData) {
+    if (selectedPetData && selectedPetData.history.length > 0) {
       const quill = historyRef.current.getEditor();
       const newContent = JSON.parse(selectedPetData.history[0]);
 
       const delta = quill.clipboard.convert(newContent);
+
+      quill.setContents(delta);
+    }
+
+    if (selectedPetData.history.length === 0) {
+      const quill = historyRef.current.getEditor();
+
+      const delta = quill.clipboard.convert("");
 
       quill.setContents(delta);
     }

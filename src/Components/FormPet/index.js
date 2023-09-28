@@ -49,6 +49,7 @@ function FormPet({ actionCancel, id, showToastModal, setMessageModal }) {
       console.error(error);
     }
   };
+
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
@@ -132,21 +133,6 @@ function FormPet({ actionCancel, id, showToastModal, setMessageModal }) {
                 }}
               />
             </div>
-          </div>
-          <div className={styles.subTitles}>
-            <h3>PET HISTORY</h3>
-          </div>
-          <div className="flex justify-center mt-4">
-            <FormField
-              type="textarea"
-              name="history"
-              error={errors.history?.message}
-              register={register}
-              onBlur={(e) => {
-                handleInputChange("history", e);
-              }}
-              useBlur={true}
-            />
           </div>
         </div>
         <div className={styles.buttonContainer}>

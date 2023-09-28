@@ -19,6 +19,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import FormPet from "../FormPet";
 import ConfirmModal from "../Shared/ConfirmModal";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 function Form({
   id,
@@ -84,11 +86,11 @@ function Form({
         age: petToEdit ? petToEdit[0]?.age : "",
         sex: petToEdit ? petToEdit[0]?.sex : "",
         color: petToEdit ? petToEdit[0]?.color : "",
-        history: petToEdit ? petToEdit[0]?.history : "",
       },
       isClient: appointment ? appointmentToEdit[0]?.isClient : "",
     },
   });
+
   function isoToNormalDate(isoDate) {
     const date = new Date(isoDate);
     const year = date.getFullYear();
@@ -147,9 +149,10 @@ function Form({
     if (fieldName.startsWith("pet.")) {
       const petFieldName = fieldName.substring(4);
       if (petFieldName === "history") {
+        const historyString = JSON.stringify(value);
         setValuePet((prevState) => ({
           ...prevState,
-          [petFieldName]: [value],
+          [petFieldName]: historyString,
         }));
       } else {
         setValuePet((prevState) => ({
@@ -185,29 +188,25 @@ function Form({
     }
   }
 
-  console.log(valuePet);
-
   const handleCreate = async () => {
-    if (!error) {
-      try {
-        const petResponse = await dispatch(createPet(valuePet));
-        const newPetId = petResponse.data._id;
+    try {
+      const petResponse = await dispatch(createPet(valuePet));
+      const newPetId = petResponse.data._id;
 
-        const appointmentData = {
-          ...valueAppointment,
-          pet: [{ _id: newPetId }],
-        };
+      const appointmentData = {
+        ...valueAppointment,
+        pet: [{ _id: newPetId }],
+      };
 
-        await dispatch(createAppointment(appointmentData));
+      await dispatch(createAppointment(appointmentData));
 
-        dispatch(getPet());
-        dispatch(getAppointment());
-        setMessageModal("Appointment Created Success");
-        showToastModal(true);
-        close();
-      } catch (error) {
-        console.error(error);
-      }
+      dispatch(getPet());
+      dispatch(getAppointment());
+      setMessageModal("Appointment Created Success");
+      showToastModal(true);
+      close();
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -234,6 +233,31 @@ function Form({
   function handleAddPet() {
     setViewFormAddPet(true);
   }
+
+  const toolbarOptions = [
+    ["bold", "italic", "underline", "strike"],
+    ["blockquote", "code-block"],
+
+    [{ header: 1 }, { header: 2 }],
+    [{ list: "ordered" }, { list: "bullet" }],
+    [{ script: "sub" }, { script: "super" }],
+    [{ indent: "-1" }, { indent: "+1" }],
+    [{ direction: "rtl" }],
+    [{ size: ["small", false, "large", "huge"] }],
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+    [{ color: [] }, { background: [] }],
+    [{ font: [] }],
+    [{ align: [] }],
+
+    ["clean"],
+  ];
+
+  const module = {
+    toolbar: toolbarOptions,
+  };
+
+  console.log(valuePet);
 
   if (bothPending) {
     return (
@@ -614,30 +638,29 @@ function Form({
             <div className={styles.subTitles}>
               <h3>PET HISTORY</h3>
             </div>
-            {id ? (
-              <div className="flex justify-center mt-4">
-                <FormField
-                  type="textarea"
+            <div className="flex justify-center mt-4">
+              {id ? (
+                <ReactQuill
+                  theme="snow"
                   error={errors.pet?.history?.message}
-                  name="pet.history"
                   register={register}
-                  onBlur={(e) => handleInputChange("pet.history", e)}
-                  useBlur={true}
+                  onChange={(e) => handleInputChange("pet.history", e)}
+                  className={styles.textEditor}
+                  modules={module}
+                  defaultValue={JSON.parse(petToEdit[0]?.history[0])}
                 />
-              </div>
-            ) : (
-              <div className="flex justify-center mt-4">
-                <FormField
-                  placeholder="Enter History"
-                  type="textarea"
+              ) : (
+                <ReactQuill
+                  theme="snow"
                   error={errors.pet?.history?.message}
-                  name="pet.history"
                   register={register}
-                  onBlur={(e) => handleInputChange("pet.history", e)}
-                  useBlur={true}
+                  onChange={(e) => handleInputChange("pet.history", e)}
+                  className={styles.textEditor}
+                  modules={module}
+                  defaultValue={""}
                 />
-              </div>
-            )}
+              )}
+            </div>
           </form>
         </div>
         <div className={styles.buttonContainer}>
@@ -651,7 +674,9 @@ function Form({
               <button
                 className={styles.editButton}
                 onClick={
-                  id ? handleSubmit(handlerEdit) : handleSubmit(handleCreate)
+                  id
+                    ? () => handleSubmit(handlerEdit())
+                    : () => handleSubmit(handleCreate())
                 }
               >
                 {id ? "Edit" : "Create"}

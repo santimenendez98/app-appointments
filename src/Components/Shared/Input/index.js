@@ -34,17 +34,7 @@ function FormField({
           {label}
         </label>
         <div className="relative mt-2 rounded-md">
-          {type === "textarea" ? (
-            <textarea
-              {...inputProps}
-              placeholder={placeholder}
-              className={
-                error
-                  ? "w-96 md-sm:w-60 h-36 resize-none text-gray-900 ring-1 ring-inset ring-red-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  : "w-96 md-sm:w-60 h-36 resize-none text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              }
-            ></textarea>
-          ) : type === "checkbox" ? (
+          {type === "checkbox" ? (
             <input
               {...inputProps}
               type={type}

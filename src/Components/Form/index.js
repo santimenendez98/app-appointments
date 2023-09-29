@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import styles from "./form.module.css";
 import {
@@ -18,9 +18,8 @@ import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import FormPet from "../FormPet";
+import History from "../History";
 import ConfirmModal from "../Shared/ConfirmModal";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 
 function Form({
   id,
@@ -38,7 +37,7 @@ function Form({
   const petPending = useSelector((state) => state.pet.isPending);
 
   const [confirmDeletePet, setConfirmDeletePet] = useState(false);
-  const historyRef = useRef();
+  const [history, setHistory] = useState(false);
 
   const appointmentToEdit = appointment.filter((data) => data._id === id);
   const petToEdit = pet.filter(
@@ -52,6 +51,9 @@ function Form({
   const [bothPending, setBothPending] = useState(false);
   const [selectedPetId, setSelectedPetId] = useState(
     appointmentToEdit[0]?.pet[0]?._id || ""
+  );
+  const selectPet = appointmentToEdit[0]?.pet?.find(
+    (pet) => pet?._id === selectedPetId
   );
   const [valuePet, setValuePet] = useState({});
   const [viewFormAddPet, setViewFormAddPet] = useState(false);
@@ -218,23 +220,6 @@ function Form({
 
     setSelectedPetId(selectedPetData._id);
 
-    if (selectedPetData && selectedPetData.history.length > 0) {
-      const quill = historyRef.current.getEditor();
-      const newContent = JSON.parse(selectedPetData.history[0]);
-
-      const delta = quill.clipboard.convert(newContent);
-
-      quill.setContents(delta);
-    }
-
-    if (selectedPetData.history.length === 0) {
-      const quill = historyRef.current.getEditor();
-
-      const delta = quill.clipboard.convert("");
-
-      quill.setContents(delta);
-    }
-
     document.getElementsByName("pet.kind")[0].value = selectedPetData.kind;
     document.getElementsByName("pet.breed")[0].value = selectedPetData.breed;
     document.getElementsByName("pet.petName")[0].value =
@@ -248,29 +233,6 @@ function Form({
   function handleAddPet() {
     setViewFormAddPet(true);
   }
-
-  const toolbarOptions = [
-    ["bold", "italic", "underline", "strike"],
-    ["blockquote", "code-block"],
-
-    [{ header: 1 }, { header: 2 }],
-    [{ list: "ordered" }, { list: "bullet" }],
-    [{ script: "sub" }, { script: "super" }],
-    [{ indent: "-1" }, { indent: "+1" }],
-    [{ direction: "rtl" }],
-    [{ size: ["small", false, "large", "huge"] }],
-    [{ header: [1, 2, 3, 4, 5, 6, false] }],
-
-    [{ color: [] }, { background: [] }],
-    [{ font: [] }],
-    [{ align: [] }],
-
-    ["clean"],
-  ];
-
-  const module = {
-    toolbar: toolbarOptions,
-  };
 
   if (bothPending) {
     return (
@@ -518,7 +480,7 @@ function Form({
                     </div>
                   </div>
                 </div>
-                <div className="lg:columns-2 sm:columns-1 border pl-3 pt-3">
+                <div className="lg:columns-2 sm:columns-1 border pl-3 pt-3 mb-5">
                   <div>
                     <FormField
                       label="Kind"
@@ -581,7 +543,7 @@ function Form({
               </div>
             ) : (
               <div className="flex justify-center mt-4">
-                <div className="lg:columns-2 sm:columns-1 border pl-3 pt-3">
+                <div className="lg:columns-2 sm:columns-1 border pl-3 pt-3 mb-5">
                   <div>
                     <FormField
                       label="Kind"
@@ -648,34 +610,6 @@ function Form({
                 </div>
               </div>
             )}
-            <div className={styles.subTitles}>
-              <h3>PET HISTORY</h3>
-            </div>
-            <div className="flex justify-center mt-4">
-              {console.log(petToEdit)}
-              {id ? (
-                <ReactQuill
-                  theme="snow"
-                  error={errors.pet?.history?.message}
-                  register={register}
-                  onChange={(e) => handleInputChange("pet.history", e)}
-                  className={styles.textEditor}
-                  modules={module}
-                  defaultValue={JSON.parse(petToEdit[0]?.history[0])}
-                  ref={historyRef}
-                />
-              ) : (
-                <ReactQuill
-                  theme="snow"
-                  error={errors.pet?.history?.message}
-                  register={register}
-                  onChange={(e) => handleInputChange("pet.history", e)}
-                  className={styles.textEditor}
-                  modules={module}
-                  defaultValue={""}
-                />
-              )}
-            </div>
           </form>
         </div>
         <div className={styles.buttonContainer}>
@@ -683,6 +617,11 @@ function Form({
             <div>
               <button className={styles.cancelButton} onClick={close}>
                 Cancel
+              </button>
+            </div>
+            <div>
+              <button className={styles.editButton} onClick={setHistory}>
+                History
               </button>
             </div>
             <div>
@@ -713,6 +652,14 @@ function Form({
           title="Delete Pet"
           actionCancel={() => setConfirmDeletePet(false)}
           actionDelete={handleDeletePet}
+        />
+      )}
+      {history && (
+        <History
+          actionCancel={() => setHistory(false)}
+          change={handleInputChange}
+          pet={selectPet}
+          edit={handlerEdit}
         />
       )}
     </div>

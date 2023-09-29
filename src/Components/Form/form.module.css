@@ -105,12 +105,6 @@ display: flex;
   justify-content: center;
 }
 
-.textEditor{
-  width: 90%;
-  height: 500px;
-  margin-bottom: 5%
-}
-
 .subTitles {
   display: flex;
   justify-content: center;

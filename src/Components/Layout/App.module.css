@@ -7,7 +7,7 @@
   justify-content: center;
   padding: 20px;
   min-height: 100vh;
-  background-color: #9AC3AC;
+  background-color: #111827;
 }
 
 .filterContainer {
@@ -79,16 +79,8 @@ flex-warp: nowrap;
   justify-content: center;
   font-family: "Roboto", sans-serif;
   font-weight: bold;
-  color: #333333;
+  color: white;
   font-size: 30px;
-}
-.cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-content: center;
-  align-items: center;
-  margin-top: 40px;
-  max-width: 80%;
 }
 
 .notFoundContainer {
@@ -97,7 +89,7 @@ flex-warp: nowrap;
 
 .notFound {
   font-family: "Josefin Sans", sans-serif;
-  color: #3a3949;
+  color: white;
   font-size: 20px;
 }
 

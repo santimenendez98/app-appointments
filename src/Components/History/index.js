@@ -5,7 +5,6 @@ import "react-quill/dist/quill.snow.css";
 import { useEffect } from "react";
 
 function History({ actionCancel, change, pet, edit }) {
-  console.log("aca", pet);
   const historyRef = useRef(null);
   const toolbarOptions = [
     ["bold", "italic", "underline", "strike"],
@@ -22,12 +21,13 @@ function History({ actionCancel, change, pet, edit }) {
     [{ color: [] }, { background: [] }],
     [{ font: [] }],
     [{ align: [] }],
-
     ["clean"],
   ];
 
   const module = {
-    toolbar: toolbarOptions,
+    toolbar: {
+      container: toolbarOptions,
+    },
   };
 
   useEffect(() => {

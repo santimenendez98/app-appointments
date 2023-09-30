@@ -3,20 +3,12 @@ import React from "react";
 
 function searchBar({ name, action, placeholder }) {
   return (
-    <div className="mr-4 flex flex-col">
-      <div className="mt-3 mr-4">
-        <label
-          htmlFor="price"
-          className="block text-sm font-medium leading-6 text-gray-900"
-        >
-          {name}
-        </label>
-      </div>
+    <div className="mr-4">
       <div className="relative mt-2 rounded-md">
         <input
           placeholder={placeholder}
           onChange={action}
-          className="block w-96 rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          className="block md:w-72 w-36 bg-gray-800 border-none border-b-2 border-white py-1.5 text-white placeholder:text-gray-400 sm:text-sm focus:ring-1 focus:ring-gray-600 "
         />
       </div>
     </div>

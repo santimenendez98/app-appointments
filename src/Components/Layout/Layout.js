@@ -1,5 +1,4 @@
 import styles from "./App.module.css";
-import Cards from "../Shared/Cards";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import {
@@ -11,11 +10,7 @@ import ConfirmModal from "../Shared/ConfirmModal";
 import Loader from "../Shared/Loader";
 import Form from "../Form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPlus,
-  faArrowRight,
-  faArrowLeft,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../Shared/Modal";
 import { deletePet, getPet } from "../../Redux/Pet/thunk";
 
@@ -142,25 +137,6 @@ function App() {
     setIdtoEdit("");
   };
 
-  const handleFilterClient = (value) => {
-    if (value === true) {
-      const filter = appointment.filter((appointments) => {
-        return appointments.isClient === true;
-      });
-      setFilteredAppointment(filter);
-    } else if (value === false) {
-      const filter = appointment.filter((appointments) => {
-        return appointments.isClient === false;
-      });
-      setFilteredAppointment(filter);
-    } else {
-      const filter = appointment.filter((appointments) => {
-        return appointments;
-      });
-      setFilteredAppointment(filter);
-    }
-  };
-
   if (isPending) {
     return (
       <>
@@ -173,22 +149,73 @@ function App() {
       <div className={styles.title}>
         <h1>VETERINARY</h1>
       </div>
-      <div className={styles.filterContainer}>
-        <div className={styles.filter}>
-          <SearchBar
-            name={"Filter: "}
-            placeholder={"Filter with name, last name or ID"}
-            action={(e) => handlerFilter(e.target.value.toLowerCase())}
-          />
-          <div className={styles.filterClient}>
-            <button onClick={() => handleFilterClient()}>All</button>
-            <button onClick={() => handleFilterClient(true)}>Client</button>
-            <button onClick={() => handleFilterClient(false)}>No Client</button>
-          </div>
-        </div>
-        <div className={styles.add} onClick={() => handlerViewForm()}>
-          <FontAwesomeIcon icon={faPlus} />
-        </div>
+      <div className="flex justify-between w-full my-5">
+        <SearchBar
+          name={"Filter: "}
+          placeholder={"Filter with name, last name or ID"}
+          action={(e) => handlerFilter(e.target.value.toLowerCase())}
+        />
+        <button
+          className="w-20 py-2 rounded bg-blue-600 text-white font-bold text-sm"
+          onClick={() => handlerViewForm()}
+        >
+          Add Client
+        </button>
+      </div>
+      <div className="w-full overflow-x-scroll">
+        <table className="w-full">
+          <thead className="border-b border-gray-700 text-white">
+            <tr>
+              <th className="px-4 py-3 sm:w-1/6">Client</th>
+              <th className="px-4 py-3 sm:w-1/6">Name</th>
+              <th className="px-4 py-3 sm:w-1/6">Last Name</th>
+              <th className="px-4 py-3 sm:w-1/6">Address</th>
+              <th className="px-4 py-3 sm:w-1/6">Paid Month</th>
+              <th className="px-4 py-3 sm:w-1/6">Date</th>
+              {/* Agregado un espacio en blanco adicional para las columnas Edit y Delete */}
+              <th className="px-4 py-3 sm:w-1/6"></th>
+              <th className="px-4 py-3 sm:w-1/6"></th>
+            </tr>
+          </thead>
+          <tbody className="text-center">
+            {itemToShow.map((appointments) => (
+              <tr
+                key={appointments._id}
+                className="border-b border-gray-800 text-gray-400"
+              >
+                <td className="px-4 py-3 sm:w-1/6">{appointments.clientID}</td>
+                <td className="px-4 py-3 sm:w-1/6">{appointments.name}</td>
+                <td className="px-4 py-3 sm:w-1/6">{appointments.lastName}</td>
+                <td className="px-4 py-3 sm:w-1/6">{appointments.address}</td>
+                <td className="px-4 py-3 sm:w-1/6">{appointments.paidMonth}</td>
+                <td className="px-4 py-3 sm:w-1/6">
+                  {isoToNormalDate(appointments.date)}
+                </td>
+                <td className="px-4 py-3 sm:w-1/6">
+                  <span
+                    onClick={() => handlerViewForm(appointments._id)}
+                    className="text-blue-500 cursor-pointer hover:text-blue-300"
+                  >
+                    Edit
+                  </span>
+                </td>
+                <td className="px-4 py-3 sm:w-1/6">
+                  <span
+                    onClick={() =>
+                      handlerConfirmModal(
+                        appointments._id,
+                        appointments.pet[0]?._id
+                      )
+                    }
+                    className="text-red-600 cursor-pointer hover:text-red-400"
+                  >
+                    Delete
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       {filteredAppointment.length === 0 ? (
@@ -200,25 +227,6 @@ function App() {
       ) : (
         ""
       )}
-      <div className={styles.cards}>
-        {itemToShow.map((appointments) => (
-          <div key={appointments._id}>
-            <Cards
-              name={appointments.name.toUpperCase()}
-              lastName={appointments.lastName.toUpperCase()}
-              clientID={appointments.clientID}
-              address={appointments.address}
-              phone={appointments.phone}
-              paidMonth={appointments.paidMonth}
-              date={isoToNormalDate(appointments.date)}
-              actionView={() => handlerViewForm(appointments._id)}
-              actionDelete={() =>
-                handlerConfirmModal(appointments._id, appointments.pet[0]?._id)
-              }
-            />
-          </div>
-        ))}
-      </div>
       <div className={styles.buttonContainer}>
         <div className={styles.paginationContainer}>
           <div
@@ -242,7 +250,6 @@ function App() {
               </button>
             ))}
           </div>
-          {console.log(pageNumber)}
           <div
             className={
               currentPage === totalPages ? styles.disabled : styles.next

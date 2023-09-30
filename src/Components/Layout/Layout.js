@@ -167,11 +167,15 @@ function App() {
           <thead className="border-b border-gray-700 text-white">
             <tr>
               <th className="px-4 py-3 sm:w-1/6">Client</th>
-              <th className="px-4 py-3 sm:w-1/6">Name</th>
+              <th className="px-4 py-3 sm:w-1/6 ">Name</th>
               <th className="px-4 py-3 sm:w-1/6">Last Name</th>
-              <th className="px-4 py-3 sm:w-1/6">Address</th>
-              <th className="px-4 py-3 sm:w-1/6">Paid Month</th>
-              <th className="px-4 py-3 sm:w-1/6">Date</th>
+              <th className="px-4 py-3 sm:w-1/6 hidden md:table-cell">
+                Address
+              </th>
+              <th className="px-4 py-3 sm:w-1/6 hidden md:table-cell">
+                Paid Month
+              </th>
+              <th className="px-4 py-3 sm:w-1/6 hidden md:table-cell">Date</th>
               <th className="px-4 py-3 sm:w-1/6"></th>
               <th className="px-4 py-3 sm:w-1/6"></th>
             </tr>
@@ -185,9 +189,13 @@ function App() {
                 <td className="px-4 py-3 sm:w-1/6">{appointments.clientID}</td>
                 <td className="px-4 py-3 sm:w-1/6">{appointments.name}</td>
                 <td className="px-4 py-3 sm:w-1/6">{appointments.lastName}</td>
-                <td className="px-4 py-3 sm:w-1/6">{appointments.address}</td>
-                <td className="px-4 py-3 sm:w-1/6">{appointments.paidMonth}</td>
-                <td className="px-4 py-3 sm:w-1/6">
+                <td className="px-4 py-3 sm:w-1/6 hidden md:table-cell">
+                  {appointments.address}
+                </td>
+                <td className="px-4 py-3 sm:w-1/6 hidden md:table-cell">
+                  {appointments.paidMonth}
+                </td>
+                <td className="px-4 py-3 sm:w-1/6 hidden md:table-cell">
                   {isoToNormalDate(appointments.date)}
                 </td>
                 <td className="px-4 py-3 sm:w-1/6">

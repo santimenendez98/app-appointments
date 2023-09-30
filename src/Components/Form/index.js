@@ -47,7 +47,6 @@ function Form({
     isClient: appointmentToEdit[0]?.isClient || false,
     clientID: appointmentToEdit[0]?.clientID || "No Client",
     paidMonth: appointmentToEdit[0]?.paidMonth || "No Client",
-    pet: [],
   });
   const [bothPending, setBothPending] = useState(false);
   const [selectedPetId, setSelectedPetId] = useState(
@@ -492,6 +491,7 @@ function Form({
                       register={register}
                       useBlur={true}
                       onBlur={(e) => handleInputChange("pet.kind", e)}
+                      disabled={appointmentToEdit[0].pet.length === 0}
                     />
                     <FormField
                       label="Breed"
@@ -501,6 +501,7 @@ function Form({
                       register={register}
                       useBlur={true}
                       onBlur={(e) => handleInputChange("pet.breed", e)}
+                      disabled={appointmentToEdit[0].pet.length === 0}
                     />
                     <FormField
                       label="Pet Name"
@@ -510,6 +511,7 @@ function Form({
                       register={register}
                       useBlur={true}
                       onBlur={(e) => handleInputChange("pet.petName", e)}
+                      disabled={appointmentToEdit[0].pet.length === 0}
                     />
                   </div>
                   <div>
@@ -521,6 +523,7 @@ function Form({
                       register={register}
                       useBlur={true}
                       onBlur={(e) => handleInputChange("pet.age", e)}
+                      disabled={appointmentToEdit[0].pet.length === 0}
                     />
                     <FormField
                       label="Sex"
@@ -530,6 +533,7 @@ function Form({
                       register={register}
                       useBlur={true}
                       onBlur={(e) => handleInputChange("pet.sex", e)}
+                      disabled={appointmentToEdit[0].pet.length === 0}
                     />
                     <FormField
                       label="Color"
@@ -539,6 +543,7 @@ function Form({
                       register={register}
                       useBlur={true}
                       onBlur={(e) => handleInputChange("pet.color", e)}
+                      disabled={appointmentToEdit[0].pet.length === 0}
                     />
                   </div>
                 </div>
@@ -622,7 +627,7 @@ function Form({
               </button>
             </div>
             <div>
-              {id ? (
+              {id && appointmentToEdit[0].pet.length > 0 ? (
                 <button className={styles.editButton} onClick={setHistory}>
                   History
                 </button>

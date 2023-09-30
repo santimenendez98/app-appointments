@@ -162,7 +162,7 @@ function App() {
           Add Client
         </button>
       </div>
-      <div className="w-full overflow-x-scroll">
+      <div className="w-full overflow-x-scroll md:overflow-hidden">
         <table className="w-full">
           <thead className="border-b border-gray-700 text-white">
             <tr>
@@ -172,7 +172,6 @@ function App() {
               <th className="px-4 py-3 sm:w-1/6">Address</th>
               <th className="px-4 py-3 sm:w-1/6">Paid Month</th>
               <th className="px-4 py-3 sm:w-1/6">Date</th>
-              {/* Agregado un espacio en blanco adicional para las columnas Edit y Delete */}
               <th className="px-4 py-3 sm:w-1/6"></th>
               <th className="px-4 py-3 sm:w-1/6"></th>
             </tr>

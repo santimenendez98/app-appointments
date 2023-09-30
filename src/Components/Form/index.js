@@ -47,6 +47,7 @@ function Form({
     isClient: appointmentToEdit[0]?.isClient || false,
     clientID: appointmentToEdit[0]?.clientID || "No Client",
     paidMonth: appointmentToEdit[0]?.paidMonth || "No Client",
+    pet: [],
   });
   const [bothPending, setBothPending] = useState(false);
   const [selectedPetId, setSelectedPetId] = useState(
@@ -55,6 +56,7 @@ function Form({
   const selectPet = appointmentToEdit[0]?.pet?.find(
     (pet) => pet?._id === selectedPetId
   );
+
   const [valuePet, setValuePet] = useState({});
   const [viewFormAddPet, setViewFormAddPet] = useState(false);
   const {
@@ -620,21 +622,24 @@ function Form({
               </button>
             </div>
             <div>
-              <button className={styles.editButton} onClick={setHistory}>
-                History
-              </button>
+              {id ? (
+                <button className={styles.editButton} onClick={setHistory}>
+                  History
+                </button>
+              ) : (
+                ""
+              )}
             </div>
             <div>
               <button
                 className={styles.editButton}
                 onClick={
-                  id
-                    ? () => handleSubmit(handlerEdit())
-                    : () => handleSubmit(handleCreate())
+                  id ? handleSubmit(handlerEdit) : handleSubmit(handleCreate)
                 }
               >
                 {id ? "Edit" : "Create"}
               </button>
+              {console.log(errors)}
             </div>
           </div>
         </div>

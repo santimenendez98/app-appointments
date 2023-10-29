@@ -618,33 +618,33 @@ function Form({
               </div>
             )}
           </form>
-        </div>
-        <div className={styles.buttonContainer}>
-          <div className={styles.button}>
-            <div>
-              <button className={styles.cancelButton} onClick={close}>
-                Cancel
-              </button>
-            </div>
-            <div>
-              {id && appointmentToEdit[0].pet.length > 0 ? (
-                <button className={styles.editButton} onClick={setHistory}>
-                  History
+          <div className={styles.buttonContainer}>
+            <div className={styles.button}>
+              <div>
+                <button className={styles.cancelButton} onClick={close}>
+                  Cancel
                 </button>
-              ) : (
-                ""
-              )}
-            </div>
-            <div>
-              <button
-                className={styles.editButton}
-                onClick={
-                  id ? handleSubmit(handlerEdit) : handleSubmit(handleCreate)
-                }
-              >
-                {id ? "Edit" : "Create"}
-              </button>
-              {console.log(errors)}
+              </div>
+              <div>
+                {id && appointmentToEdit[0].pet.length > 0 ? (
+                  <button className={styles.historyButton} onClick={setHistory}>
+                    History
+                  </button>
+                ) : (
+                  ""
+                )}
+              </div>
+              <div>
+                <button
+                  className={styles.editButton}
+                  onClick={
+                    id ? handleSubmit(handlerEdit) : handleSubmit(handleCreate)
+                  }
+                >
+                  {id ? "Edit" : "Create"}
+                </button>
+                {console.log(errors)}
+              </div>
             </div>
           </div>
         </div>

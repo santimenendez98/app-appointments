@@ -65,7 +65,7 @@
       padding: 8px;
       width: 150px;
       background-color: #5bb882;
-      color: black;
+      color: white;
       border: none;
       border-radius: 8px;
       font-family: "Roboto Slab", sans-serif;
@@ -75,13 +75,18 @@
       cursor: pointer;
       padding: 8px;
       width: 150px;
-      background-color: #fa3131;
-      color: #fff;
-      border: none;
+      background-color: #fff;
+      color: #fa3131;
+      border: 1px solid #fa3131;
       border-radius: 8px;
       font-family: "Roboto Slab", sans-serif;
     }
-  
+
+    .cancelButton:hover{
+      background-color: #fa3131;
+      color: white
+    }
+
     @media (max-width: 1023px) {
       .formContainer {
         width: 100%;

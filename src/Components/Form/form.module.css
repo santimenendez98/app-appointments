@@ -125,7 +125,6 @@ display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-color: #E3E3E3;
 }
 
 .button {
@@ -141,8 +140,17 @@ display: flex;
   padding: 8px;
   width: 150px;
   background-color: #5bb882;
-  color: black;
+  color: white;
   border: none;
+  border-radius: 8px;
+  font-family: "Roboto Slab", sans-serif;
+}
+
+.historyButton {
+  cursor: pointer;
+  padding: 8px;
+  width: 150px;
+  color: black;
   border-radius: 8px;
   font-family: "Roboto Slab", sans-serif;
 }
@@ -151,11 +159,16 @@ display: flex;
   cursor: pointer;
   padding: 8px;
   width: 150px;
-  background-color: #fa3131;
-  color: #fff;
-  border: none;
+  background-color: #fff;
+  color: #fa3131;
+  border: 1px solid #fa3131;
   border-radius: 8px;
   font-family: "Roboto Slab", sans-serif;
+}
+
+.cancelButton:hover{
+background-color: #fa3131;
+color: white
 }
 
 .addPet {

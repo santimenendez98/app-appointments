@@ -151,7 +151,7 @@ function App() {
           <h2>Aside Content</h2>
         </aside>
       </div>
-      <div className="mx-auto w-8/12 mt-20">
+      <div className="mx-auto w-11/12 mt-10 res-table:mt-20 res-table:w-8/12">
         <div className="flex flex-col">
           <div className="flex items-center bg-white p-3 shadow-lg">
             <h5 className="font-title font-bold text-title mr-3">Veterinary</h5>
@@ -198,7 +198,7 @@ function App() {
                 {itemToShow.map((appointments) => (
                   <tr
                     key={appointments._id}
-                    className="border-t border-gr text-black text-subtitle"
+                    className="border-t border-gr text-black text-subtitle font-title"
                   >
                     <td
                       className={

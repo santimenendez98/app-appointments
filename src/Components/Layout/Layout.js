@@ -61,7 +61,7 @@ function App() {
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate() + 1).padStart(2, "0");
 
-    return `${year}-${month}-${day}`;
+    return `${day}-${month}-${year}`;
   }
 
   const totalPages = Math.ceil(filteredAppointment.length / 8);
@@ -146,128 +146,156 @@ function App() {
   }
   return (
     <div className={styles.container}>
-      <div className={styles.title}>
-        <h1>VETERINARY</h1>
+      <div className="flex">
+        <aside className="w-12/12 p-4 bg-gray-200 md-sm:hidden inline">
+          <h2>Aside Content</h2>
+        </aside>
       </div>
-      <div className="flex justify-between w-full my-5">
-        <SearchBar
-          name={"Filter: "}
-          placeholder={"Filter with name, last name or ID"}
-          action={(e) => handlerFilter(e.target.value.toLowerCase())}
-        />
-        <button
-          className="w-20 py-2 rounded bg-blue-600 text-white font-bold text-sm"
-          onClick={() => handlerViewForm()}
-        >
-          Add Client
-        </button>
-      </div>
-      <div className="w-full overflow-x-scroll md:overflow-hidden">
-        <table className="w-full">
-          <thead className="border-b border-gray-700 text-white">
-            <tr>
-              <th className="px-4 py-3 sm:w-1/6">Client</th>
-              <th className="px-4 py-3 sm:w-1/6 ">Name</th>
-              <th className="px-4 py-3 sm:w-1/6">Last Name</th>
-              <th className="px-4 py-3 sm:w-1/6 hidden md:table-cell">
-                Address
-              </th>
-              <th className="px-4 py-3 sm:w-1/6 hidden md:table-cell">
-                Paid Month
-              </th>
-              <th className="px-4 py-3 sm:w-1/6 hidden md:table-cell">Date</th>
-              <th className="px-4 py-3 sm:w-1/6"></th>
-              <th className="px-4 py-3 sm:w-1/6"></th>
-            </tr>
-          </thead>
-          <tbody className="text-center">
-            {itemToShow.map((appointments) => (
-              <tr
-                key={appointments._id}
-                className="border-b border-gray-800 text-gray-400"
-              >
-                <td className="px-4 py-3 sm:w-1/6">{appointments.clientID}</td>
-                <td className="px-4 py-3 sm:w-1/6">{appointments.name}</td>
-                <td className="px-4 py-3 sm:w-1/6">{appointments.lastName}</td>
-                <td className="px-4 py-3 sm:w-1/6 hidden md:table-cell">
-                  {appointments.address}
-                </td>
-                <td className="px-4 py-3 sm:w-1/6 hidden md:table-cell">
-                  {appointments.paidMonth}
-                </td>
-                <td className="px-4 py-3 sm:w-1/6 hidden md:table-cell">
-                  {isoToNormalDate(appointments.date)}
-                </td>
-                <td className="px-4 py-3 sm:w-1/6">
-                  <span
-                    onClick={() => handlerViewForm(appointments._id)}
-                    className="text-blue-500 cursor-pointer hover:text-blue-300"
+      <div className="mx-auto w-8/12 mt-20">
+        <div className="flex flex-col">
+          <div className="flex items-center bg-white p-3 shadow-lg">
+            <h5 className="font-title font-bold text-title mr-3">Veterinary</h5>
+            <ul className="border-l border-titleColor px-5">
+              <li className="font-title text-subtitle text-titleColor">
+                Client
+              </li>
+            </ul>
+          </div>
+          <div className="flex justify-between w-full my-10">
+            <SearchBar
+              name={"Filter: "}
+              placeholder={"Filter with name, last name or ID"}
+              action={(e) => handlerFilter(e.target.value.toLowerCase())}
+            />
+            <button
+              className="w-20 py-2 rounded bg-blue-600 text-white font-bold text-sm hover:bg-blue-700"
+              onClick={() => handlerViewForm()}
+            >
+              Add Client
+            </button>
+          </div>
+          <div className="w-full overflow-x-scroll md:overflow-hidden p-3 bg-white shadow-lg">
+            <table className="w-full bg-white border-collapse">
+              <thead className=" text-black bg-bg-table font-bold">
+                <tr>
+                  <th className="px-4 py-3 sm:w-1/6">Client</th>
+                  <th className="px-4 py-3 sm:w-1/6 ">Name</th>
+                  <th className="px-4 py-3 sm:w-1/6">Last Name</th>
+                  <th className="px-4 py-3 sm:w-1/6 hidden res-table:table-cell">
+                    Address
+                  </th>
+                  <th className="px-4 py-3 sm:w-1/6 hidden res-table:table-cell">
+                    Paid Month
+                  </th>
+                  <th className="px-4 py-3 sm:w-1/6 hidden res-table:table-cell">
+                    Date
+                  </th>
+                  <th className="px-4 py-3 sm:w-1/6"></th>
+                  <th className="px-4 py-3 sm:w-1/6"></th>
+                </tr>
+              </thead>
+              <tbody className="text-center">
+                {itemToShow.map((appointments) => (
+                  <tr
+                    key={appointments._id}
+                    className="border-t border-gr text-black text-subtitle"
                   >
-                    Edit
-                  </span>
-                </td>
-                <td className="px-4 py-3 sm:w-1/6">
-                  <span
-                    onClick={() =>
-                      handlerConfirmModal(
-                        appointments._id,
-                        appointments.pet[0]?._id
-                      )
-                    }
-                    className="text-red-600 cursor-pointer hover:text-red-400"
-                  >
-                    Delete
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                    <td
+                      className={
+                        appointments.clientID === "No Client"
+                          ? "px-4 py-3 sm:w-1/6 text-red-300"
+                          : "px-4 py-3 sm:w-1/6"
+                      }
+                    >
+                      {appointments.clientID}
+                    </td>
+                    <td className="px-4 py-3 sm:w-1/6">{appointments.name}</td>
+                    <td className="px-4 py-3 sm:w-1/6">
+                      {appointments.lastName}
+                    </td>
+                    <td className="px-4 py-3 sm:w-1/6 hidden res-table:table-cell">
+                      {appointments.address}
+                    </td>
+                    <td className="px-4 py-3 sm:w-1/6 hidden res-table:table-cell">
+                      {appointments.paidMonth}
+                    </td>
+                    <td className="px-4 py-3 sm:w-1/6 hidden res-table:table-cell">
+                      {isoToNormalDate(appointments.date)}
+                    </td>
+                    <td className="px-4 py-3 sm:w-1/6">
+                      <span
+                        onClick={() => handlerViewForm(appointments._id)}
+                        className="text-blue-500 cursor-pointer font-bold hover:text-blue-700"
+                      >
+                        EDIT
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 sm:w-1/6">
+                      <span
+                        onClick={() =>
+                          handlerConfirmModal(
+                            appointments._id,
+                            appointments.pet[0]?._id
+                          )
+                        }
+                        className="text-red-500 cursor-pointer font-bold hover:text-red-700"
+                      >
+                        DELETE
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {filteredAppointment.length === 0 ? (
+              <div className={styles.notFoundContainer}>
+                <div className={styles.notFound}>
+                  <p>NO USER FOUND WITH THE NAME OR SURNAME ENTERED</p>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
 
-      {filteredAppointment.length === 0 ? (
-        <div className={styles.notFoundContainer}>
-          <div className={styles.notFound}>
-            <p>NO USER FOUND WITH THE NAME OR SURNAME ENTERED</p>
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
-      <div className={styles.buttonContainer}>
-        <div className={styles.paginationContainer}>
-          <div
-            className={currentPage === 1 ? styles.disabled : styles.previous}
-          >
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              <FontAwesomeIcon icon={faArrowLeft} />
-            </button>
-          </div>
-          <div className={styles.pages}>
-            {pageNumber.map((page) => (
-              <button
-                key={page}
-                onClick={() => handlePageChange(page)}
-                className={styles.pagination}
+          <div className={styles.buttonContainer}>
+            <div className={styles.paginationContainer}>
+              <div
+                className={
+                  currentPage === 1 ? styles.disabled : styles.previous
+                }
               >
-                {page}
-              </button>
-            ))}
-          </div>
-          <div
-            className={
-              currentPage === totalPages ? styles.disabled : styles.next
-            }
-          >
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              <FontAwesomeIcon icon={faArrowRight} />
-            </button>
+                <button
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
+                  <FontAwesomeIcon icon={faArrowLeft} />
+                </button>
+              </div>
+              <div className={styles.pages}>
+                {pageNumber.map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => handlePageChange(page)}
+                    className={styles.pagination}
+                  >
+                    {page}
+                  </button>
+                ))}
+              </div>
+              <div
+                className={
+                  currentPage === totalPages ? styles.disabled : styles.next
+                }
+              >
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                >
+                  <FontAwesomeIcon icon={faArrowRight} />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

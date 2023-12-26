@@ -246,16 +246,6 @@ function Form({
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
-        <div className={styles.title}>
-          {id ? (
-            <h2>
-              {appointmentToEdit[0].name.toUpperCase()}{" "}
-              {appointmentToEdit[0].lastName.toUpperCase()} PROFILE
-            </h2>
-          ) : (
-            <h2>CREATE APPOINTMENT</h2>
-          )}
-        </div>
         <div className={styles.dataContainer}>
           <div className={styles.subTitles}>
             <h3>USER INFORMATION</h3>

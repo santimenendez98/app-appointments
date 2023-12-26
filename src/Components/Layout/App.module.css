@@ -2,12 +2,8 @@
 
 .container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
   min-height: 100vh;
-  background-color: #111827;
+  background-color: #f0f2f8;
 }
 
 .filterContainer {
@@ -79,25 +75,27 @@ flex-warp: nowrap;
   justify-content: center;
   font-family: "Roboto", sans-serif;
   font-weight: bold;
-  color: white;
+  color: black;
   font-size: 30px;
 }
 
 .notFoundContainer {
-  margin: auto;
+  display: flex;
+  justify-content: center;
+  margin: 20px 0
 }
 
 .notFound {
   font-family: "Josefin Sans", sans-serif;
-  color: white;
+  color: black;
   font-size: 20px;
 }
 
 .buttonContainer {
   margin: auto;
+  margin-top: 20px;
   width: 90%;
 }
-
 
 .disabledPagination {
   padding: 8px;
@@ -116,8 +114,7 @@ flex-warp: nowrap;
 
 .pagination {
   font-size: 20px;
-  background-color: #B87048;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  color: black;
   padding: 5px 10px;
   margin-right: 5px;
   margin-left: 5px
@@ -129,17 +126,18 @@ flex-warp: nowrap;
 }
 
 .previous {
-  margin-top: 3px;
-  color: #B87048
+  margin-top: 7px;
+  color: #2563eb
 }
 
 .next {
-  margin-top: 3px;
-  color: #B87048
+  margin-top: 7px;
+  color: #2563eb
 }
 
 .disabled {
-  margin-top: 3px;
+  margin-top: 7px;
+  color: gray;
 }
 
 .noScroll{

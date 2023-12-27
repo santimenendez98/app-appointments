@@ -9,6 +9,8 @@ module.exports = {
       },
       backgroundColor: {
         "bg-table": "#f0f2f8",
+        "aside-bg": "#1c232f",
+        "aside-title": "#161c25",
       },
       borderColor: {
         gr: "#f1f1f1",

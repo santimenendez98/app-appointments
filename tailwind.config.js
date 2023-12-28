@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       screens: {
         "md-sm": { max: "767px" },
-        "res-table": { min: "1030px" },
+        "res-table": { min: "1275px" },
       },
       backgroundColor: {
         "bg-table": "#f0f2f8",

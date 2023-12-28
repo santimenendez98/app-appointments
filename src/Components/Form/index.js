@@ -633,7 +633,6 @@ function Form({
                 >
                   {id ? "Edit" : "Create"}
                 </button>
-                {console.log(errors)}
               </div>
             </div>
           </div>

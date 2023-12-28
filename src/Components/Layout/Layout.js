@@ -13,7 +13,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../Shared/Modal";
 import { deletePet, getPet } from "../../Redux/Pet/thunk";
-import { Link } from "react-router-dom";
 
 function App() {
   const appointment = useSelector((state) => state.appointment.data);
@@ -147,15 +146,7 @@ function App() {
   }
   return (
     <div className={styles.container}>
-      <div className="flex">
-        <aside className="w-64 bg-aside-bg hidden res-table:inline">
-          <div className="bg-aside-title flex justify-center items-center p-2">
-            <img className="w-40" alt="logo" src="/aside-logo.png" />
-          </div>
-          <Link to="/client">Prueba</Link>
-        </aside>
-      </div>
-      <div className="mx-auto w-11/12 mt-10 res-table:mt-20 res-table:w-8/12">
+      <div className="mx-auto w-11/12 mt-10 res-table:mt-20 res-table:w-10/12">
         <div className="flex flex-col">
           <div className="flex items-center bg-white p-3 shadow-lg">
             <h5 className="font-title font-bold text-title mr-3">Veterinary</h5>

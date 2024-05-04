@@ -16,7 +16,7 @@ const Aside = (props) => {
         <div className="bg-aside-title flex justify-center items-center p-2">
           <img className="w-40" alt="logo" src="/aside-logo.png" />
         </div>
-        <Link to="/client">Prueba</Link>
+        <Link to="/client">Lista de clientes</Link>
       </aside>
       <div className="w-full">{props.children}</div>
     </div>

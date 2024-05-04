@@ -34,6 +34,8 @@ function App() {
     dispatch(getPet());
   }, [dispatch]);
 
+  console.log(process.env)
+
   useEffect(() => {
     if (appointment && appointment.length > 0) {
       setFilteredAppointment(appointment);

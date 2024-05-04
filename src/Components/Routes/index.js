@@ -1,28 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "../Login/index";
 import App from "../Layout/Layout";
 import Aside from "../Aside";
+import { useSelector, useDispatch } from "react-redux";
+import { login, logout } from "../../Redux/Login/actions";
 
 const Routes = () => {
-  const [isLogged, setIsLogged] = useState(false)
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
+  const dispatch = useDispatch();
   useEffect(() => {
     const userEmail = sessionStorage.getItem("email");
     const userPassword = sessionStorage.getItem("password");
     if (userEmail && userPassword) {
-      setIsLogged(true);
+      dispatch(login())
     } else {
-      setIsLogged(false);
+      dispatch(logout());
     }
-  }, []);
+  }, [dispatch]);
   return (
     <Switch>
       <Route exact path="/">
-        {isLogged ? <Redirect to="/client" /> : <Login />}
+        {isLoggedIn ? <Redirect to="/client" /> : <Login />}
       </Route>
       <Aside>
       <Route path="/*">
-        {isLogged ? <App /> : <Redirect to="/" />}
+        {isLoggedIn ? <App /> : <Redirect to="/" />}
       </Route>
       </Aside>
     </Switch>

@@ -95,6 +95,8 @@ function Form({
     },
   });
 
+  console.log(appointmentToEdit[0])
+
   function isoToNormalDate(isoDate) {
     const date = new Date(isoDate);
     const year = date.getFullYear();
@@ -210,7 +212,8 @@ function Form({
       showToastModal(true);
       close();
     } catch (error) {
-      console.error(error);
+      setMessageModal(`An error ocurred: ${error}`);
+      showToastModal(true);
     }
   };
 

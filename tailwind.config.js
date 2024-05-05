@@ -6,11 +6,14 @@ module.exports = {
       screens: {
         "md-sm": { max: "767px" },
         "res-table": { min: "1275px" },
+        "login-img": {max: "1275px"}
       },
       backgroundColor: {
         "bg-table": "#f0f2f8",
         "aside-bg": "#1c232f",
         "aside-title": "#161c25",
+        "button-login" : "#34D2E0",
+        "btn-hover": "#046BE0"
       },
       borderColor: {
         gr: "#f1f1f1",
@@ -18,6 +21,7 @@ module.exports = {
       },
       fontFamily: {
         title: "Inter",
+        login: "Bebas Neue"
       },
       fontSize: {
         title: "16px",
@@ -25,6 +29,7 @@ module.exports = {
       },
       colors: {
         titleColor: "#aeb1b6",
+        error: "#FF0000"
       },
     },
   },

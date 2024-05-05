@@ -17,9 +17,8 @@ function FormField({
 }) {
   const inputProps = {
     defaultValue: defaultValue,
-    ...(register
-      ? { ...register(name) }
-      : useBlur
+    ...register(name),
+    ...(useBlur
       ? { onBlur: (e) => onBlur(e.target.value) }
       : { onChange: (e) => onChange(e.target.value) }),
     value: value,
@@ -71,6 +70,12 @@ function FormField({
                   <option value="October">October</option>
                   <option value="November">November</option>
                   <option value="December">December</option>
+                </>
+              ) : name === "pet.kind" || name === "kind" ? (
+                <>
+                  <option value="">Choose an Option</option>
+                  <option value="Dog">Dog</option>
+                  <option value="Cat">Cat</option>
                 </>
               ) : (
                 <>

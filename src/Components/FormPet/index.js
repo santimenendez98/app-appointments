@@ -62,7 +62,7 @@ function FormPet({ actionCancel, id, showToastModal, setMessageModal }) {
               <FormField
                 label="Kind"
                 placeholder="Enter Kind"
-                type="text"
+                type="select"
                 name="kind"
                 error={errors.kind?.message}
                 register={register}

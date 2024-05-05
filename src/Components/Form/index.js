@@ -154,6 +154,7 @@ function Form({
   function handleInputChange(fieldName, value) {
     if (fieldName.startsWith("pet.")) {
       const petFieldName = fieldName.substring(4);
+      console.log(petFieldName)
       if (petFieldName === "history") {
         const historyString = JSON.stringify(value);
         setValuePet((prevState) => ({
@@ -478,13 +479,13 @@ function Form({
                   <div>
                     <FormField
                       label="Kind"
-                      type="text"
+                      type="select"
                       error={errors.pet?.kind?.message}
                       name="pet.kind"
                       register={register}
                       useBlur={true}
                       onBlur={(e) => handleInputChange("pet.kind", e)}
-                      disabled={appointmentToEdit[0].pet.length === 0}
+                      disabled={appointmentToEdit[0].pet.length > 0}
                     />
                     <FormField
                       label="Breed"
@@ -526,7 +527,7 @@ function Form({
                       register={register}
                       useBlur={true}
                       onBlur={(e) => handleInputChange("pet.sex", e)}
-                      disabled={appointmentToEdit[0].pet.length === 0}
+                      disabled={appointmentToEdit[0].pet.length > 0}
                     />
                     <FormField
                       label="Color"
@@ -536,7 +537,7 @@ function Form({
                       register={register}
                       useBlur={true}
                       onBlur={(e) => handleInputChange("pet.color", e)}
-                      disabled={appointmentToEdit[0].pet.length === 0}
+                      disabled={appointmentToEdit[0].pet.length > 0}
                     />
                   </div>
                 </div>
@@ -548,7 +549,7 @@ function Form({
                     <FormField
                       label="Kind"
                       placeholder="Enter Kind"
-                      type="text"
+                      type="select"
                       error={errors.pet?.kind?.message}
                       name="pet.kind"
                       register={register}

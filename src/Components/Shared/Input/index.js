@@ -17,7 +17,7 @@ function FormField({
 }) {
   const inputProps = {
     defaultValue: defaultValue,
-    ...register(name),
+    ...(register ? register(name) : {}),
     ...(useBlur
       ? { onBlur: (e) => onBlur(e.target.value) }
       : { onChange: (e) => onChange(e.target.value) }),

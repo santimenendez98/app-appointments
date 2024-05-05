@@ -41,12 +41,14 @@ const Login = () => {
           <FormField
             label="Email:"
             type="text"
+            placeholder="Enter email"
             useBlur={true}
             onBlur={(e) => handlerInputChange("email", e)}
           />
           <FormField
             label="Password:"
-            type="text"
+            type="password"
+            placeholder="Enter password"
             useBlur={true}
             onBlur={(e) => handlerInputChange("password", e)}
           />

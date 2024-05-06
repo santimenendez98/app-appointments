@@ -10,9 +10,10 @@ import ConfirmModal from "../Shared/ConfirmModal";
 import Loader from "../Shared/Loader";
 import Form from "../Form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faArrowLeft, faBars } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../Shared/Modal";
 import { deletePet, getPet } from "../../Redux/Pet/thunk";
+import Aside from "../Aside";
 
 function App() {
   const appointment = useSelector((state) => state.appointment.data);
@@ -28,13 +29,12 @@ function App() {
   const [showToastModal, setShowToastModal] = useState(false);
   const [pageTitle, setPageTitle] = useState("Veterinary");
   const [confirmPetIdToDelete, setConfirmPetIdToDelete] = useState("");
+  const [showAside, setShowAside] = useState(false)
 
   useEffect(() => {
     dispatch(getAppointment());
     dispatch(getPet());
   }, [dispatch]);
-
-  console.log(process.env)
 
   useEffect(() => {
     if (appointment && appointment.length > 0) {
@@ -151,6 +151,9 @@ function App() {
       <div className="mx-auto w-11/12 mt-10 res-table:mt-20 res-table:w-10/12">
         <div className="flex flex-col">
           <div className="flex items-center bg-white p-3 shadow-lg">
+            <div className="login-img:flex login-img:mr-10 hidden">
+              <FontAwesomeIcon icon={faBars} size="lg" onClick={() => setShowAside(!showAside)}/>
+            </div>
             <h5 className="font-title font-bold text-title mr-3">Veterinary</h5>
             <ul className="border-l border-titleColor px-5">
               <li className="font-title text-subtitle text-titleColor">
@@ -315,6 +318,7 @@ function App() {
       {showToastModal && (
         <Modal message={toastModal} close={() => setShowToastModal(false)} />
       )}
+      {showAside && <div className="absolute top-0 left-0"><Aside show={showAside}/></div>}
     </div>
   );
 }

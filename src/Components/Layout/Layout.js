@@ -30,11 +30,12 @@ function App() {
   const [pageTitle, setPageTitle] = useState("Veterinary");
   const [confirmPetIdToDelete, setConfirmPetIdToDelete] = useState("");
   const [showAside, setShowAside] = useState(false)
+  const token = sessionStorage.getItem("token")
 
   useEffect(() => {
-    dispatch(getAppointment());
-    dispatch(getPet());
-  }, [dispatch]);
+    dispatch(getAppointment(token));
+    dispatch(getPet(token));
+  }, [dispatch, token]);
 
   useEffect(() => {
     if (appointment && appointment.length > 0) {
@@ -97,10 +98,10 @@ function App() {
   };
 
   const handleDelete = () => {
-    dispatch(deleteAppointment(confirmIdtoDelete));
-    dispatch(deletePet(confirmPetIdToDelete))
+    dispatch(deleteAppointment(confirmIdtoDelete, token));
+    dispatch(deletePet(confirmPetIdToDelete, token))
       .then(() => {
-        dispatch(getAppointment());
+        dispatch(getAppointment(token));
         setConfirmModal(false);
         setConfirmIdToDelete(false);
         setToastModal("Deleted Successfull");

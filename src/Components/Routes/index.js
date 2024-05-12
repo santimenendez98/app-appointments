@@ -3,30 +3,28 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "../Login/index";
 import App from "../Layout/Layout";
 import Aside from "../Aside";
-import { useSelector, useDispatch } from "react-redux";
-import { login, logout } from "../../Redux/Login/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 const Routes = () => {
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
   const dispatch = useDispatch();
+  const history = useHistory();
+  const isLoggedIn = useSelector((state) => state.auth?.logged)
+  const token = sessionStorage.getItem("token")
   useEffect(() => {
-    const userEmail = sessionStorage.getItem("email");
-    const userPassword = sessionStorage.getItem("password");
-    if (userEmail && userPassword) {
-      dispatch(login())
+    if (isLoggedIn || token) {
+      history.push("/client")
     } else {
-      dispatch(logout());
+      history.push("/")
     }
-  }, [dispatch]);
+  }, [dispatch, history, isLoggedIn, token]);
   return (
     <Switch>
       <Route exact path="/">
-        {isLoggedIn ? <Redirect to="/client" /> : <Login />}
+        {isLoggedIn || token ? <Redirect to="/client" /> : <Login />}
       </Route>
       <Aside>
-      <Route path="/*">
-        {isLoggedIn ? <App /> : <Redirect to="/" />}
-      </Route>
+        <Route path="/*">{isLoggedIn || token ? <App /> : <Redirect to="/" />}</Route>
       </Aside>
     </Switch>
   );

@@ -13,12 +13,15 @@ import {
   editPetPending,
 } from "./action";
 
-export const getPet = () => {
+export const getPet = (token) => {
   return async (dispatch) => {
     dispatch(getPetPending());
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/api/pet`, {
         method: "GET",
+        headers: {
+          "token": `${token}`,
+        }
       });
       const res = await response.json();
       if (res) {
@@ -33,7 +36,7 @@ export const getPet = () => {
   };
 };
 
-export const createPet = (data) => {
+export const createPet = (data, token) => {
   return async (dispatch) => {
     dispatch(addPetPending());
     try {
@@ -41,6 +44,7 @@ export const createPet = (data) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "token": `${token}`,
         },
         body: JSON.stringify(data),
       });
@@ -60,7 +64,7 @@ export const createPet = (data) => {
   };
 };
 
-export const editPet = (id, data) => {
+export const editPet = (id, data, token) => {
   return async (dispatch) => {
     dispatch(editPetPending());
     try {
@@ -70,6 +74,7 @@ export const editPet = (id, data) => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            "token": `${token}`,
           },
           body: JSON.stringify(data),
         }
@@ -89,7 +94,7 @@ export const editPet = (id, data) => {
   };
 };
 
-export const deletePet = (id) => {
+export const deletePet = (id, token) => {
   return async (dispatch) => {
     dispatch(deletePetPending());
     try {
@@ -97,6 +102,9 @@ export const deletePet = (id) => {
         `${process.env.REACT_APP_API_URL}/api/pet/${id}`,
         {
           method: "DELETE",
+          headers: {
+            "token": `${token}`,
+          }
         }
       );
       const res = await response.json();

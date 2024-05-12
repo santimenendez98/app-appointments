@@ -31,7 +31,6 @@ function Form({
 }) {
   const dispatch = useDispatch();
   const appointment = useSelector((state) => state.appointment.data);
-  const error = useSelector((state) => state.appointment.error);
   const isPending = useSelector((state) => state.appointment.isPending);
   const pet = useSelector((state) => state.pet.data);
   const petPending = useSelector((state) => state.pet.isPending);
@@ -55,6 +54,7 @@ function Form({
   const selectPet = appointmentToEdit[0]?.pet?.find(
     (pet) => pet?._id === selectedPetId
   );
+  const token = sessionStorage.getItem("token");
 
   const [valuePet, setValuePet] = useState({});
   const [viewFormAddPet, setViewFormAddPet] = useState(false);
@@ -95,8 +95,6 @@ function Form({
     },
   });
 
-  console.log(appointmentToEdit[0])
-
   function isoToNormalDate(isoDate) {
     const date = new Date(isoDate);
     const year = date.getFullYear();
@@ -116,34 +114,30 @@ function Form({
     setBothPending(isPending && petPending);
   }, [isPending, petPending]);
 
-  const handlerEdit = () => {
-    if (!error) {
-      dispatch(editPet(selectedPetId, valuePet))
-        .then(() => {
-          dispatch(
-            editAppointment(appointmentToEdit[0]._id, valueAppointment)
-          ).then(() => {
-            dispatch(getPet());
-            dispatch(getAppointment());
-            setMessageModal("Appointment Edited Success");
-            showToastModal(true);
-            close();
-            resetId();
-          });
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+  const handlerEdit = async () => {
+    try {
+        await dispatch(editPet(selectedPetId, valuePet, token));
+        await dispatch(editAppointment(appointmentToEdit[0]._id, valueAppointment, token));
+        await dispatch(getPet(token));
+        await dispatch(getAppointment(token));
+        setMessageModal("Appointment Edited Success");
+        showToastModal(true);
+        close();
+        resetId();
+    } catch (error) {
+      console.error(error);
     }
   };
+  
+  
 
   const handleDeletePet = async () => {
     try {
-      await dispatch(deletePet(selectedPetId));
+      await dispatch(deletePet(selectedPetId, token));
 
       setConfirmDeletePet(false);
-      dispatch(getPet());
-      dispatch(getAppointment());
+      dispatch(getPet(token));
+      dispatch(getAppointment(token));
       setMessageModal("Pet Deleted Success");
       showToastModal(true);
     } catch (error) {
@@ -154,7 +148,6 @@ function Form({
   function handleInputChange(fieldName, value) {
     if (fieldName.startsWith("pet.")) {
       const petFieldName = fieldName.substring(4);
-      console.log(petFieldName)
       if (petFieldName === "history") {
         const historyString = JSON.stringify(value);
         setValuePet((prevState) => ({
@@ -197,7 +190,7 @@ function Form({
 
   const handleCreate = async () => {
     try {
-      const petResponse = await dispatch(createPet(valuePet));
+      const petResponse = await dispatch(createPet(valuePet, token));
       const newPetId = petResponse.data._id;
 
       const appointmentData = {
@@ -205,10 +198,10 @@ function Form({
         pet: [{ _id: newPetId }],
       };
 
-      await dispatch(createAppointment(appointmentData));
+      await dispatch(createAppointment(appointmentData, token));
 
-      dispatch(getPet());
-      dispatch(getAppointment());
+      dispatch(getPet(token));
+      dispatch(getAppointment(token));
       setMessageModal("Appointment Created Success");
       showToastModal(true);
       close();

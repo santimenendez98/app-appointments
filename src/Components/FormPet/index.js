@@ -26,6 +26,7 @@ function FormPet({ actionCancel, id, showToastModal, setMessageModal }) {
   const petsAppointment = appointments.find(
     (appointment) => appointment._id === id
   );
+  const token = sessionStorage.getItem("token");
 
   const handleInputChange = (name, value) => {
     setPetData({ ...petData, [name]: value });
@@ -33,15 +34,15 @@ function FormPet({ actionCancel, id, showToastModal, setMessageModal }) {
 
   const handleCreate = async () => {
     try {
-      const petResponse = await dispatch(createPet(petData));
+      const petResponse = await dispatch(createPet(petData, token));
       const newPetId = {
         pet: [...petsAppointment.pet, { _id: petResponse.data._id }],
       };
 
-      await dispatch(editAppointment(id, newPetId));
+      await dispatch(editAppointment(id, newPetId, token));
 
-      dispatch(getPet());
-      dispatch(getAppointment());
+      dispatch(getPet(token));
+      dispatch(getAppointment(token));
       actionCancel();
       setMessageModal("Pet Created Success");
       showToastModal(true);

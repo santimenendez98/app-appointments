@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { useDispatch } from "react-redux";
-import { login } from "../../Redux/Login/actions";
+import { loginUser } from "../../Redux/Login/thunk";
 import styles from "./login.module.css"
 import FormField from "../Shared/Input";
 
@@ -16,15 +16,18 @@ const Login = () => {
     setError("");
   }
 
-  const handlerSubmit = () => {
-    if (userValue.email === "prueba@prueba.com" && userValue.password === "prueba") {
-      sessionStorage.setItem("email", userValue.email);
-      sessionStorage.setItem("password", userValue.password);
-      dispatch(login())
-      history.push("/client")
-    } else {
-      setError("User or password incorrect")
-    }
+  const handlerSubmit = async () => {
+    try{
+      const response = await dispatch(loginUser(userValue))
+      if(response){
+        sessionStorage.setItem("token", response)
+        history.push("/client")
+      } else {
+        setError("User or Password invalid")
+      }
+    } catch(error){
+        setError(error)
+      }
   }
   
   return (

@@ -13,7 +13,7 @@ import {
   editAppointmentPending,
 } from "./actions";
 
-export const getAppointment = () => {
+export const getAppointment = (token) => {
   return async (dispatch) => {
     dispatch(getAppointmentPending());
     try {
@@ -21,6 +21,9 @@ export const getAppointment = () => {
         `${process.env.REACT_APP_API_URL}/api/appointment`,
         {
           method: "GET",
+          headers: {
+            "token": `${token}`,
+          }
         }
       );
       const res = await response.json();
@@ -36,7 +39,7 @@ export const getAppointment = () => {
   };
 };
 
-export const createAppointment = (data) => {
+export const createAppointment = (data, token) => {
   return async (dispatch) => {
     dispatch(addAppointmentPending());
     try {
@@ -46,6 +49,7 @@ export const createAppointment = (data) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "token": `${token}`,
           },
           body: JSON.stringify(data),
         }
@@ -65,7 +69,7 @@ export const createAppointment = (data) => {
   };
 };
 
-export const editAppointment = (id, data) => {
+export const editAppointment = (id, data, token) => {
   return async (dispatch) => {
     dispatch(editAppointmentPending());
     try {
@@ -75,6 +79,7 @@ export const editAppointment = (id, data) => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            "token": `${token}`,
           },
           body: JSON.stringify(data),
         }
@@ -94,7 +99,7 @@ export const editAppointment = (id, data) => {
   };
 };
 
-export const deleteAppointment = (id) => {
+export const deleteAppointment = (id, token) => {
   return async (dispatch) => {
     dispatch(deleteAppointmentPending());
     try {
@@ -102,6 +107,9 @@ export const deleteAppointment = (id) => {
         `${process.env.REACT_APP_API_URL}/api/appointment/${id}`,
         {
           method: "DELETE",
+          headers: {
+            "token": `${token}`,
+          }
         }
       );
       const res = await response.json();

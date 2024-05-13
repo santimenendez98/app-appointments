@@ -31,6 +31,7 @@ const initialState = {
         case 'LOGOUT':
             return {
                 ...state,
+                loading: false,
                 user: null,
                 error: null,
                 logged: false

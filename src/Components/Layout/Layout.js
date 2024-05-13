@@ -18,6 +18,7 @@ import Aside from "../Aside";
 function App() {
   const appointment = useSelector((state) => state.appointment.data);
   const isPending = useSelector((state) => state.appointment.pending);
+  const loading = useSelector((state) => state.auth.loading)
   const dispatch = useDispatch();
   const [filteredAppointment, setFilteredAppointment] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -140,7 +141,7 @@ function App() {
     setIdtoEdit("");
   };
 
-  if (isPending) {
+  if (isPending || loading) {
     return (
       <>
         <Loader />

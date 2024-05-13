@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../Redux/Login/thunk";
 import styles from "./login.module.css"
 import FormField from "../Shared/Input";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
   const [userValue, setUserValue] = useState({});
   const [error, setError] = useState("")
   const history = useHistory();
   const dispatch = useDispatch()
+  const loading = useSelector((state) => state.auth.loading)
 
   const handlerInputChange = (name, e) => {
     setUserValue({ ...userValue, [name]: e });
@@ -21,6 +24,7 @@ const Login = () => {
       const response = await dispatch(loginUser(userValue))
       if(response){
         sessionStorage.setItem("token", response)
+        sessionStorage.setItem("email", userValue.email)
         history.push("/client")
       } else {
         setError("User or Password invalid")
@@ -57,7 +61,7 @@ const Login = () => {
           />
           {error && <p className="font-bold text-error">{error}</p>}
           <div className="py-3 flex justify-center">
-            <button onClick={handlerSubmit} className={`bg-button-login p-3 rounded-md w-28 text-white font-bold ${styles.btnHover}`}>Submit</button>
+            {loading ? <button onClick={handlerSubmit} className={`bg-button-login p-3 rounded-md w-28 text-white font-bold disabled ${styles.btnHover}`}><FontAwesomeIcon icon={faSpinner} spinPulse/></button> : <button onClick={handlerSubmit} className={`bg-button-login p-3 rounded-md w-28 text-white font-bold ${styles.btnHover}`}>Submit</button>}
           </div>
           </div>
         </div>

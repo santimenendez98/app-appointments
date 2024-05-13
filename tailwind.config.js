@@ -29,7 +29,8 @@ module.exports = {
       },
       colors: {
         titleColor: "#aeb1b6",
-        error: "#FF0000"
+        error: "#FF0000",
+        logoColor: "#0975be"
       },
     },
   },

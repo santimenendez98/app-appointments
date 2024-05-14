@@ -9,7 +9,7 @@ import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 const Aside = (props) => {
   const pending = useSelector((state) => state.appointment.pending);
   const user = useSelector((state) => state.user.data)
-  const filteredUser = user.filter((data) => data?.email === sessionStorage.getItem("email"))
+  const filteredUser = user.filter((data) => data?.email === localStorage.getItem("email"))
   const [modal, setModal] = useState(false);
   const [showAside, setShowAside] = useState(false);
   const history = useHistory();
@@ -38,7 +38,10 @@ const Aside = (props) => {
               <img className="w-60" alt="logo" src="/aside-logo.png" />
             </div>
             <div className="mt-10 flex flex-col items-center">
-            <h1 className="text-logoColor font-bold px-2 mb-5">User: {filteredUser[0]?.name}</h1>
+            <h1 className="text-logoColor font-bold px-2 mb-5">User: {filteredUser[0]?.name}{filteredUser[0]?.lastName}</h1>
+              <Link to="/users" className="text-white font-bold p-2 hover:text-red-500">
+                Usuarios
+              </Link>
               <Link
                 to="/client"
                 className="text-white font-bold p-2 hover:text-red-500"
@@ -77,7 +80,10 @@ const Aside = (props) => {
               <img className="w-40" alt="logo" src="/aside-logo.png" />
             </div>
             <div className="p-5 flex flex-col">
-              <h1 className="text-logoColor font-bold px-2 mb-5">User: {filteredUser[0]?.name}</h1>
+              <p className="text-logoColor font-bold px-2 mb-5">{filteredUser[0]?.name} {filteredUser[0]?.lastName}</p>
+              <Link to="/users" className="text-white font-bold p-2 hover:text-red-500">
+                Usuarios
+              </Link>
               <Link
                 to="/client"
                 className="font-bold p-2 text-white hover:text-red-500"

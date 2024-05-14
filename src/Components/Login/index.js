@@ -23,8 +23,8 @@ const Login = () => {
     try{
       const response = await dispatch(loginUser(userValue))
       if(response){
-        sessionStorage.setItem("token", response)
-        sessionStorage.setItem("email", userValue.email)
+        localStorage.setItem("token", response)
+        localStorage.setItem("email", userValue.email)
         history.push("/client")
       } else {
         setError("User or Password invalid")

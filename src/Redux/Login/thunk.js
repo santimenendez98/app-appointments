@@ -36,7 +36,7 @@ import {
     return async (dispatch) => {
         dispatch(loginRequest());
         try {
-            sessionStorage.clear();
+            localStorage.clear();
             dispatch(logout())
         } catch (error) {
             dispatch(loginFailure(error))

@@ -64,11 +64,15 @@
       cursor: pointer;
       padding: 8px;
       width: 150px;
-      background-color: #5bb882;
+      background-color: #2563eb;
       color: white;
       border: none;
       border-radius: 8px;
       font-family: "Roboto Slab", sans-serif;
+    }
+
+    .editButton:hover {
+      background-color: #487cee;
     }
   
     .cancelButton {

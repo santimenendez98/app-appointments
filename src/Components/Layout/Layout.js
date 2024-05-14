@@ -18,7 +18,6 @@ import Aside from "../Aside";
 function App() {
   const appointment = useSelector((state) => state.appointment.data);
   const isPending = useSelector((state) => state.appointment.pending);
-  const loading = useSelector((state) => state.auth.loading)
   const dispatch = useDispatch();
   const [filteredAppointment, setFilteredAppointment] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,11 +30,17 @@ function App() {
   const [pageTitle, setPageTitle] = useState("Veterinary");
   const [confirmPetIdToDelete, setConfirmPetIdToDelete] = useState("");
   const [showAside, setShowAside] = useState(false)
-  const token = sessionStorage.getItem("token")
+  const token = localStorage.getItem("token")
 
   useEffect(() => {
-    dispatch(getAppointment(token));
-    dispatch(getPet(token));
+    const fetchData = async () => {
+      if (token) {
+        await dispatch(getAppointment(token));
+        await dispatch(getPet(token));
+      }
+    };
+  
+    fetchData();
   }, [dispatch, token]);
 
   useEffect(() => {
@@ -141,7 +146,7 @@ function App() {
     setIdtoEdit("");
   };
 
-  if (isPending || loading) {
+  if (isPending) {
     return (
       <>
         <Loader />

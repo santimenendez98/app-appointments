@@ -1,0 +1,181 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Roboto+Slab:wght@200;300;500&family=Roboto:wght@100;400;700&display=swap");
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f0f2f8;
+}
+
+.filterContainer {
+  display: flex;
+  width: 100%;
+  margin: 20px auto;
+}
+
+.filter {
+  width: 100%;
+}
+
+.filterClient {
+display: flex;
+flex-wrap: nowrap;
+}
+
+.filterClient button {
+  margin-right: 6px;
+  margin-top: 20px;
+  width: 124px;
+  padding: 7px;
+  background-color: #5bb882;
+  cursor: pointer;
+  color: #ffffff;
+  border-radius: 5%;
+  border: none;
+}
+
+.filterClient button:hover {
+  background-color: #499167;
+}
+
+.add {
+  position: relative;
+  background-color: #5bb882;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  color: #ffffff;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.add:hover::after {
+  content: "Add";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  transform: translateY(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  color: black;
+  font-size: 30px;
+}
+
+.notFoundContainer {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0
+}
+
+.notFound {
+  font-family: "Josefin Sans", sans-serif;
+  color: black;
+  font-size: 20px;
+}
+
+.buttonContainer {
+  margin: auto;
+  margin-top: 20px;
+  width: 90%;
+}
+
+.disabledPagination {
+  padding: 8px;
+  width: 10%;
+  background-color: #575c59;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: "Roboto Slab", sans-serif;
+}
+
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination {
+  font-size: 20px;
+  color: black;
+  padding: 5px 10px;
+  margin-right: 5px;
+  margin-left: 5px
+}
+
+.pages {
+  margin-left: 10px;
+  margin-right: 10px
+}
+
+.previous {
+  margin-top: 7px;
+  color: #2563eb
+}
+
+.next {
+  margin-top: 7px;
+  color: #2563eb
+}
+
+.disabled {
+  margin-top: 7px;
+  color: gray;
+}
+
+.noScroll{
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 1500px) {
+  .cards {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 1264px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 695px) {
+  .cards {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .filterContainer {
+    flex-direction: column
+  }
+  .add {
+    margin-top: 20px;
+  }
+  .filter input {
+    width: 270px
+  }
+  .filterClient {
+    flex-grow: 2;
+  }
+  .filterClient button {
+    width: 85px
+  }
+}

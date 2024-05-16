@@ -53,7 +53,7 @@ function History({ actionCancel, change, pet, edit }) {
     <div className={styles.container}>
       <div className={styles.formContainer}>
         <div className={styles.title}>
-          <h2>HISTORY</h2>
+          <h3>HISTORY</h3>
         </div>
         <div className={styles.historyContainer}>
           <ReactQuill

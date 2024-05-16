@@ -11,7 +11,6 @@ const Aside = (props) => {
   const user = useSelector((state) => state.user.data)
   const filteredUser = user.filter((data) => data?.email === localStorage.getItem("email"))
   const [modal, setModal] = useState(false);
-  const [showAside, setShowAside] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -24,14 +23,13 @@ const Aside = (props) => {
         console.log(error);
       });
   };
-
   return (
     <div className="h-screen bg-aside-bg flex">
-      {props.show ? (
+      {props.close ? (
         <>
           <aside
             className={
-              showAside ? "hidden" : "w-72 bg-aside-bg res-table:hidden"
+              "w-72 h-full bg-aside-bg res-table:hidden block absolute top-0 left-0"
             }
           >
             <div className="bg-aside-title flex justify-center items-center p-2">
@@ -56,7 +54,7 @@ const Aside = (props) => {
               </button>
               <button
                 className="text-white font-bold p-2"
-                onClick={() => setShowAside(!showAside)}
+                onClick={props.close}
               >
                 <FontAwesomeIcon
                   icon={faCircleXmark}
@@ -79,7 +77,7 @@ const Aside = (props) => {
             <div className="bg-aside-title flex justify-center items-center p-2">
               <img className="w-40" alt="logo" src="/aside-logo.png" />
             </div>
-            <div className="p-5 flex flex-col">
+            <div className="p-5 flex flex-col items-center">
               <p className="text-logoColor font-bold px-2 mb-5">{filteredUser[0]?.name} {filteredUser[0]?.lastName}</p>
               <Link to="/users" className="text-white font-bold p-2 hover:text-red-500">
                 Usuarios

@@ -30,7 +30,7 @@ function App() {
   const [pageTitle, setPageTitle] = useState("Veterinary");
   const [confirmPetIdToDelete, setConfirmPetIdToDelete] = useState("");
   const [showAside, setShowAside] = useState(false)
-  const token = useSelector((state) => state.auth?.user?.token)
+  const token = useSelector((state) => state.auth?.user)
 
   useEffect(() => {
       if (token) {
@@ -321,7 +321,7 @@ function App() {
       {showToastModal && (
         <Modal message={toastModal} close={() => setShowToastModal(false)} />
       )}
-      {showAside && <div className="absolute top-0 left-0"><Aside show={showAside}/></div>}
+      {showAside && <Aside close={() => setShowAside(false)}/>}
     </div>
   );
 }

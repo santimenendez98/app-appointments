@@ -2,10 +2,13 @@ export const loginRequest = () => ({
     type: 'LOGIN_REQUEST'
   });
 
-export const loginSuccess = (user) => ({
+export const loginSuccess = (user) => {
+  const expirationTime = new Date().getTime() + 3600 * 1000;
+  return {
     type: 'LOGIN_SUCCESS',
-    payload: user
-});
+    payload: {user, expirationTime}
+  }
+};
 
 export const loginFailure = (error) => ({
     type: 'LOGIN_FAILURE',

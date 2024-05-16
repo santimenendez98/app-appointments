@@ -33,14 +33,11 @@
 
   .title {
     display: flex;
-      font-family: "Roboto", sans-serif;
-      color: #3a3949;
-      font-size: 25px;
-      background-color: #E3E3E3;
-      width: 100%;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
+  justify-content: center;
+  font-family: "Josefin Sans", sans-serif;
+  color: #3a3949;
+  font-size: 20px;
+  padding: 10px;
     }
   
     .buttonContainer {
@@ -48,7 +45,6 @@
       justify-content: center;
       align-items: center;
       width: 100%;
-      background-color: #E3E3E3;
       margin-top: auto;
     }
   

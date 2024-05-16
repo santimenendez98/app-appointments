@@ -9,12 +9,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Aside from "../Aside";
 import { getUser } from "../../Redux/User/thunk";
+import UserForm from "../UserForm";
 
 function Users() {
   const user = useSelector((state) => state.user.data);
   const isPending = useSelector((state) => state.user.pending);
   const [showAside, setShowAside] = useState(false);
-  const [filteredUser, setFilteredUser] = useState([])
+  const [filteredUser, setFilteredUser] = useState([]);
+  const [showUserForm, setUserForm] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -79,7 +81,7 @@ function Users() {
               action={(e) => filterUser(e.target.value)}
               placeholder={"Filter with name, last name or ID"}
             />
-            <button className="w-20 py-2 rounded bg-blue-600 text-white font-bold text-sm hover:bg-blue-700">
+            <button className="w-20 py-2 rounded bg-blue-600 text-white font-bold text-sm hover:bg-blue-700" onClick={() => setUserForm(!showUserForm)}>
               Add User
             </button>
           </div>
@@ -132,9 +134,10 @@ function Users() {
         </div>
       </div>
       {showAside && (
-        <div className="absolute top-0 left-0">
-          <Aside show={showAside} />
-        </div>
+          <Aside close={() => setShowAside(false)} />
+      )}
+      {showUserForm && (
+        <UserForm close={() => setUserForm(false)}/>
       )}
     </div>
   );

@@ -2,7 +2,8 @@ const initialState = {
     user: null,
     loading: false,
     error: null,
-    logged: false
+    logged: false,
+    expirationTime: null,
   };
 
   const authReducer = (state = initialState, action) => {
@@ -16,7 +17,8 @@ const initialState = {
             return {
                 ...state,
                 loading: false,
-                user: action.payload,
+                user: action.payload.user.token,
+                expirationTime: action.payload.expirationTime,
                 error: null,
                 logged: true
             };

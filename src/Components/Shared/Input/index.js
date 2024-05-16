@@ -50,10 +50,10 @@ function FormField({
               disabled={disabled}
               className={
                 error
-                  ? "block w-96 md-sm:w-60 rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-red-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  ? "block w-96 md-sm:w-72 rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-red-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   : disabled
-                  ? "block w-96 md-sm:w-60 h-9 rounded-md bg-gray-300 border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  : "block w-96 md-sm:w-60 h-9 rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  ? "block w-96 md-sm:w-72 h-9 rounded-md bg-gray-300 border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  : "block w-96 md-sm:w-72 h-9 rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               }
             >
               {name === "paidMonth" ? (
@@ -93,10 +93,10 @@ function FormField({
               disabled={disabled}
               className={
                 error
-                  ? "block w-96 md-sm:w-60 rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-red-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  ? "block w-96 md-sm:w-72 rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-red-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   : disabled
-                  ? "block w-96 md-sm:w-60 h-9 rounded-md bg-gray-300 border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  : "block w-96 md-sm:w-60 rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  ? "block w-96 md-sm:w-72 h-9 rounded-md bg-gray-300 border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  : "block w-96 md-sm:w-72 rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               }
             />
           )}

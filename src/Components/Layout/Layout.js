@@ -30,17 +30,13 @@ function App() {
   const [pageTitle, setPageTitle] = useState("Veterinary");
   const [confirmPetIdToDelete, setConfirmPetIdToDelete] = useState("");
   const [showAside, setShowAside] = useState(false)
-  const token = localStorage.getItem("token")
+  const token = useSelector((state) => state.auth?.user?.token)
 
   useEffect(() => {
-    const fetchData = async () => {
       if (token) {
-        await dispatch(getAppointment(token));
-        await dispatch(getPet(token));
+        dispatch(getAppointment(token));
+        dispatch(getPet(token));
       }
-    };
-  
-    fetchData();
   }, [dispatch, token]);
 
   useEffect(() => {

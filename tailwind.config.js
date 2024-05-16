@@ -6,7 +6,9 @@ module.exports = {
       screens: {
         "md-sm": { max: "767px" },
         "res-table": { min: "1275px" },
-        "login-img": {max: "1275px"}
+        "login-img": {max: "1275px"},
+        "res-user-table": {min: "765px"},
+        "res-user-email": {min: "556px"}
       },
       backgroundColor: {
         "bg-table": "#f0f2f8",

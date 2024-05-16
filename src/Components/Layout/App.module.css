@@ -18,7 +18,7 @@
 
 .filterClient {
 display: flex;
-flex-warp: nowrap;
+flex-wrap: nowrap;
 }
 
 .filterClient button {

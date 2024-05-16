@@ -54,7 +54,7 @@ function Form({
   const selectPet = appointmentToEdit[0]?.pet?.find(
     (pet) => pet?._id === selectedPetId
   );
-  const token = localStorage.getItem("token");
+  const token = useSelector((state) => state.auth?.user?.token)
 
   const [valuePet, setValuePet] = useState({});
   const [viewFormAddPet, setViewFormAddPet] = useState(false);

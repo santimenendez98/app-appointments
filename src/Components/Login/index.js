@@ -19,11 +19,11 @@ const Login = () => {
     setError("");
   }
 
-  const handlerSubmit = async () => {
+  const handlerSubmit = async (e) => {
+    e.preventDefault()
     try{
       const response = await dispatch(loginUser(userValue))
       if(response){
-        localStorage.setItem("token", response)
         localStorage.setItem("email", userValue.email)
         history.push("/client")
       } else {
@@ -41,29 +41,29 @@ const Login = () => {
           <img src="/login_image.jpg" alt="login_image" className="opacity-90 h-screen object-cover login-img:opacity-70"></img>
         </div>
         <div className="login-img:absolute login-img:inset-0 flex flex-col justify-center items-center res-table:w-1/2">
-          <div className="login-img:inline-block login-img:bg-white login-img:p-10 rounded">
-          <div className="flex justify-center">
-            <h1 className="font-login text-4xl">Log In</h1>
-          </div>
-          <FormField
-            label="Email:"
-            type="text"
-            placeholder="Enter email"
-            useBlur={true}
-            onBlur={(e) => handlerInputChange("email", e)}
-          />
-          <FormField
-            label="Password:"
-            type="password"
-            placeholder="Enter password"
-            useBlur={true}
-            onBlur={(e) => handlerInputChange("password", e)}
-          />
-          {error && <p className="font-bold text-error">{error}</p>}
-          <div className="py-3 flex justify-center">
-            {loading ? <button onClick={handlerSubmit} className={`bg-button-login p-3 rounded-md w-28 text-white font-bold disabled ${styles.btnHover}`}><FontAwesomeIcon icon={faSpinner} spinPulse/></button> : <button onClick={handlerSubmit} className={`bg-button-login p-3 rounded-md w-28 text-white font-bold ${styles.btnHover}`}>Submit</button>}
-          </div>
-          </div>
+          <form className="login-img:inline-block login-img:bg-white login-img:p-10 rounded">
+            <div className="flex justify-center">
+              <h1 className="font-login text-4xl">Log In</h1>
+            </div>
+            <FormField
+              label="Email:"
+              type="text"
+              placeholder="Enter email"
+              useBlur={false}
+              onChange={(e) => handlerInputChange("email", e)}
+            />
+            <FormField
+              label="Password:"
+              type="password"
+              placeholder="Enter password"
+              useBlur={false}
+              onChange={(e) => handlerInputChange("password", e)}
+            />
+            {error && <p className="font-bold text-error">{error}</p>}
+            <div className="py-3 flex justify-center">
+              {loading ? <button onClick={(e) => handlerSubmit(e)} className={`bg-button-login p-3 rounded-md w-28 text-white font-bold disabled ${styles.btnHover}`}><FontAwesomeIcon icon={faSpinner} spinPulse/></button> : <button onClick={handlerSubmit} className={`bg-button-login p-3 rounded-md w-28 text-white font-bold ${styles.btnHover}`}>Submit</button>}
+            </div>
+          </form>
         </div>
       </div>
     </div>

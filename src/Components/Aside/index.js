@@ -38,7 +38,7 @@ const Aside = (props) => {
               <img className="w-60" alt="logo" src="/aside-logo.png" />
             </div>
             <div className="mt-10 flex flex-col items-center">
-            <h1 className="text-logoColor font-bold px-2 mb-5">User: {filteredUser[0]?.name}{filteredUser[0]?.lastName}</h1>
+            <h1 className="text-logoColor font-bold px-2 mb-5">{filteredUser[0]?.name} {filteredUser[0]?.lastName}</h1>
               <Link to="/users" className="text-white font-bold p-2 hover:text-red-500">
                 Usuarios
               </Link>
@@ -48,12 +48,12 @@ const Aside = (props) => {
               >
                 Lista de clientes
               </Link>
-              <Link
+              <button
                 className="text-white font-bold p-2 hover:text-red-500"
                 onClick={() => setModal(true)}
               >
                 Cerrar Sesion
-              </Link>
+              </button>
               <button
                 className="text-white font-bold p-2"
                 onClick={() => setShowAside(!showAside)}
@@ -90,12 +90,12 @@ const Aside = (props) => {
               >
                 Lista de clientes
               </Link>
-              <Link
+              <button
                 className="text-white font-bold p-2 hover:text-red-500"
                 onClick={() => setModal(true)}
               >
                 Cerrar Sesion
-              </Link>
+              </button>
             </div>
           </aside>
           <div className="w-full">{props.children}</div>

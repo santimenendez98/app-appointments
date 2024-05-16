@@ -11,7 +11,7 @@ const Routes = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const isLoggedIn = useSelector((state) => state.auth?.logged)
-  const token = localStorage.getItem("token")
+  const token = useSelector((state) => state.auth?.user?.token)
   useEffect(() => {
     if (isLoggedIn || token) {
       history.push("/client")

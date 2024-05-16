@@ -37,6 +37,18 @@ flex-wrap: nowrap;
   background-color: #499167;
 }
 
+.notFoundContainer {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0
+}
+
+.notFound {
+  font-family: "Josefin Sans", sans-serif;
+  color: black;
+  font-size: 20px;
+}
+
 .add {
   position: relative;
   background-color: #5bb882;

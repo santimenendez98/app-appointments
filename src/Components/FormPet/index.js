@@ -26,7 +26,7 @@ function FormPet({ actionCancel, id, showToastModal, setMessageModal }) {
   const petsAppointment = appointments.find(
     (appointment) => appointment._id === id
   );
-  const token = localStorage.getItem("token");
+  const token = useSelector((state) => state.auth?.user?.token)
 
   const handleInputChange = (name, value) => {
     setPetData({ ...petData, [name]: value });

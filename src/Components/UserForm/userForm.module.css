@@ -20,6 +20,8 @@
   height: auto;
   background-color: #fff;
   border-radius: 10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .subTitle {

@@ -606,7 +606,7 @@ function Form({
             )}
           </form>
           <div className={styles.buttonContainer}>
-            <div className={styles.button}>
+            <div className={!id ? styles.buttonAdd : styles.button}>
               <div>
                 <button className={styles.cancelButton} onClick={close}>
                   Cancel

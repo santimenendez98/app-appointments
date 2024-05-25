@@ -32,7 +32,10 @@ import {
       dispatch(putUserPending());
       try {
         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user`, {
-          method: "PUT",
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify(data)
         });
         const res = await response.json();

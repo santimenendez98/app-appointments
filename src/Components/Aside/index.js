@@ -1,18 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ConfirmModal from "../Shared/ConfirmModal";
 import { logOutUser } from "../../Redux/Login/thunk";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { getUser } from "../../Redux/User/thunk";
 
 const Aside = (props) => {
   const pending = useSelector((state) => state.appointment.pending);
-  const user = useSelector((state) => state.user.data)
-  const filteredUser = user.filter((data) => data?.email === localStorage.getItem("email"))
+  const user = useSelector((state) => state.user.data);
+  const filteredUser = user.filter((user) => user.email === localStorage.getItem("email"));
   const [modal, setModal] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUser)
+  },[dispatch])
 
   const signOut = () => {
     dispatch(logOutUser())
@@ -71,7 +76,7 @@ const Aside = (props) => {
             className={
               pending
                 ? "hidden"
-                : "w-64 bg-aside-bg hidden res-table:flex res-table:flex-col"
+                : "w-64 h-full bg-aside-bg hidden res-table:flex res-table:flex-col"
             }
           >
             <div className="bg-aside-title flex justify-center items-center p-2">
